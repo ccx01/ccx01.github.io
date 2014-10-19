@@ -43,6 +43,55 @@
 						<a href="http://www.w3.org/Talks/2012/0416-CSS-WWW2012/Demos/transforms/demo-rotate3d.html">http://www.w3.org/Talks/2012/0416-CSS-WWW2012/Demos/transforms/demo-rotate3d.html</a>
 					</dd>
 				</li>
+				<li>
+					<dt>20141019</dt>
+					<dd>算是了解traqball的计算过程了。</dd>
+					<dd><a href="http://www.eleqtriq.com/2010/11/natural-object-rotation-with-css3-3d/">http://www.eleqtriq.com/2010/11/natural-object-rotation-with-css3-3d/</a></dd>
+					<dd>设置轨迹球圆心及半径<br>
+						鼠标滑动时先将平面坐标投到轨迹球上
+						<pre>
+							function calcZvector(coords) {
+								var x = coords[0],
+									y = coords[1],
+									// 将x，y坐标换成以圆心为起点的向量
+									vector = [(x / radius - 1), (y / radius - 1)],
+									z = 1 - vector[0] * vector[0] - vector[1] * vector[1];
+
+								vector[2] = z > 0 ? Math.sqrt(z) : 0;
+
+								return vector;
+							}
+						</pre>
+						旋转时根据鼠标两次向量，得出法向量为旋转的轴<br>
+						由法向量算法得到方程式
+						<pre>
+							axis[0] * v1[0] + axis[1] * v1[1] + axis[2] * v1[2] = 0
+							axis[0] * v2[0] + axis[1] * v2[1] + axis[2] * v2[2] = 0
+						</pre>
+						设axis[0] = 1可得到对应的axis，转换后如下
+						<pre>
+							axis[0] = v1[1] * v2[2] - v1[2] * v2[1];
+							axis[1] = v1[2] * v2[0] - v1[0] * v2[2];
+							axis[2] = v1[0] * v2[1] - v1[1] * v2[0];
+						</pre>
+						旋转角度则是向量间的夹角
+						<pre>
+							cosθ = v1 * v2 / |v1| * |v2|
+						</pre>
+						最后将旋转轴和旋转角度套入矩阵公式
+						<pre>
+							var	matrix = [
+								[(cos + x * x * cosmin), (y * x * cosmin + z * sin), (z * x * cosmin - y * sin), 0],
+								[(x * y * cosmin - z * sin), (cos + y * y * cosmin), (z * y * cosmin + x * sin), 0],
+								[(x * z * cosmin + y * sin), (y * z * cosmin - x * sin), (cos + z * z * cosmin), 0],
+								[tx, ty, tz, 1]
+							];
+						</pre>
+						矩阵公式没有验算过，不过和之前多个矩阵相乘，最后转化出来的结果应该是相同的<br>
+						大概rotateX(axis:[1,0,0]),rotateY(axis:[0,1,0]),rotateZ(axis:[0,0,1])需要先转换成对应的axis,angle<br>
+						原理应该是这样，但是具体怎么推导还是没什么头绪，总之公式就是这样，先记录一下。
+					</dd>
+				</li>
 			</ul>
 		</section>
 	</div>
