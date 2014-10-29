@@ -20,7 +20,7 @@
 			<a id="forkme_banner" href="https://github.com/ccx01">View on GitHub</a>
 
 			<h1 id="project_title">Sign on the code</h1>
-			<h2 id="project_tagline">记录开发过程中的一些 点</h2>
+			<h2 id="project_tagline">typing...</h2>
 
 		</header>
 	</div>
@@ -35,6 +35,153 @@
 			<ul>
 				<li>
 					<h3><a href="https://github.com/ccx01/lv9">lv9</a></h3>
+				</li>
+				<li>
+					<dt>20140727</dt>
+					<dd>接下来的设计思路：</dd>
+					<dd>时间元素由**时间指针**来表现</dd>
+					<dd>空间元素由**银河宇宙**来表现</dd>
+				</li>
+				<li>
+					<dt>20140811</dt>
+					<dd>rotate旋转时</dd>
+					<dd>瞬间由一个角度切换到另一个角度（2个选择器里有不同的角度，从一个选择器切换到另一个选择器）</dd>
+					<dd>似乎直接走最小弧度</dd>
+					<dd>如初始值到330，转过的角度则只有30</dd>
+					<dd>但是如果默认值设定为0时，转过则会实现330</dd>
+					<dd>初始值与结束角度都需要设定值，如初始值rotateZ(0deg) -> rotateZ(360deg)</dd>
+					<dd>此时如果存在其他rotate如rotateX也需要为其设定完整的初始值与结束值，否则所有rotate动画都会走最短路径</dd>
+					<dd>rotate3d设0无效</dd>
+				</li>
+				<li>
+					<dt>20140813</dt>
+					<dd>perspective: 0px; 动画时会有个初始化效果，300px->0px 过程与终点不同</dd>
+				</li>
+				<li>
+					<dt>20140823</dt>
+					<dd>博客什么的还是算了，实在不适合我，还是按自己的方式把readme当做技术文字记录用了</dd>
+					<dd>以时空为主题的话，果然还是要有个“未来”元素，一直很想制作电影动漫里常出现的操作框的效果，但是每次做完总觉的哪里不对，隐隐的就是有种不和谐感。</dd>
+					<dd>另外，这个点击次数是有点多了，操作过于繁琐，就算当做游戏来对待也是很糟糕的体验。</dd>
+					<dd>嗯，动画效果的重心果然还是在时间算法上，不过就算这样，感觉tween算法也不能很好的表现出来，莫非要亲自写一套高定制的算法- -？</dd>
+					<dd>总有种漫画画到一半发现自己的放射线画的太差了，然后就停下来苦练放射线的既视感。</dd>
+					<dd>把博客删掉以后，前两天的commit记录变0了，current streak重新开始计算了╮(╯▽╰)╭</dd>
+				</li>
+				<li>
+					<dt>20140826</dt>
+					<dd>虽然current streak没了，但是成就还是要做</dd>
+					<dd>布局卡壳了，不知道怎么做比较好看。</dd>
+				</li>
+				<li>
+					<dt>20140827</dt>
+					<dd>打鱼模式全开</dd>
+					<dd>也许这段时间先在本子上画一下构想比较好</dd>
+				</li>
+				<li>
+					<dt>20140829</dt>
+					<dd>打鱼</dd>
+				</li>
+				<li>
+					<dt>20140830</dt>
+					<dd>打鱼2，睡了一下午，晚上估计要熬夜了</dd>
+					<dd>perspective比translateZ帅多了</dd>
+				</li>
+				<li>
+					<dt>20140905</dt>
+					<dd>熬夜毁一周</dd>
+				</li>
+				<li>
+					<dt>20140908</dt>
+					<dd>matrix3d貌似没有系统的教程，不过three.js倒是实现了3d的算法。</dd>
+					<dd>初步实验matrix3d单个值修改时大概长这样</dd>
+					<dd>scaleX skewX  rotateX 0</dd>
+					<dd>skewY  scaleY rotateY 0</dd>
+					<dd>unknow unknow unknow  unknow</dd>
+					<dd>translateX tanslateY tanslateZ scaleZ</dd>
+					<dd>3d转换好像需要7个矩阵相乘。。。</dd>
+				</li>
+				<li>
+					<dt>20140909</dt>
+					<dd>3d转换的公式是这个：</dd>
+					<pre>
+var sl = [
+	[s,0,0,0],
+	[0,s,0,0],
+	[0,0,s,0],
+	[0,0,0,1]
+];
+
+var rx = [
+	[1,0,0,0],
+	[0,Math.cos(a), Math.sin(-a), 0],
+	[0,Math.sin(a), Math.cos( a), 0],
+	[0,0,0,1]
+];
+
+var ry = [
+	[Math.cos( b), 0, Math.sin(b),0],
+	[0,1,0,0],
+	[Math.sin(-b), 0, Math.cos(b), 0],
+	[0,0,0,1]
+];
+
+var rz = [
+	[Math.cos(c), Math.sin(-c), 0, 0],
+	[Math.sin(c), Math.cos( c), 0, 0],
+	[0,0,1,0],
+	[0,0,0,1]
+];
+
+var tr = [
+	[1,0,0,0],
+	[0,1,0,0],
+	[0,0,1,0],
+	[x,y,z,1]
+];
+					</pre>
+
+				<dd>然后把5个矩阵相乘就是最后的matrix3d了，具体的矩阵乘积公式见本次提交。或者引入sylvester.js</dd>
+
+				</li>
+				<li>
+					<dt>20140913</dt>
+					<dd>感冒灌开水中</dd>
+				</li>
+				<li>
+					<dt>20140914</dt>
+					<dd>readme这样弄也不是办法，难道还是要开个博客？或者内部建个记事本，不过那样的话还不如readme直接写</dd>
+				</li>
+				<li>
+					<dt>20140915</dt>
+					<dd>课前练习，喉咙很痛</dd>
+				</li>
+				<li>
+					<dt>20140916</dt>
+					<dd>这几天鱼打的。。。不过身体真的还是很难受。</dd>
+					<dd>最近大脑烧起来的时候感觉想的特别多，有时候也觉得这样子混绿点还不如做真实的记录，虽然总是会考虑这意义性，但是既然已经开始，剩下能做的就是坚持下去了，不管是来自自己还是外部的怀疑。</dd>
+				</li>
+				<li>
+					<dt>20140918</dt>
+					<dd>折腾到最后才发现3d转换重要的不是matrix3d而是计算公式- -</dd>
+				</li>
+				<li>
+					<dt>20140919</dt>
+					<dd>感冒好了，大概。。。</dd>
+				</li>
+				<li>
+					<dt>20140920</dt>
+					<dd>好久没有长时间走动了</dd>
+				</li>
+				<li>
+					<dt>20140921</dt>
+					<dd>停留时间有点过头了，另外虽然已经决定不继续做那个莫名的成就了，但是还是想继续每天至少记录点什么。</dd>
+				</li>
+				<li>
+					<dt>20140922</dt>
+					<dd>算法还是没有头绪，感觉就像魔方拼一面和拼6面的区别一样。</dd>
+				</li>
+				<li>
+					<dt>20140924</dt>
+					<dd>自欺欺人</dd>
 				</li>
 				<li>
 					<dt>20141018</dt>
@@ -91,6 +238,14 @@ var	matrix = [
 						大概rotateX(axis:[1,0,0]),rotateY(axis:[0,1,0]),rotateZ(axis:[0,0,1])需要先转换成对应的axis,angle<br>
 						原理应该是这样，但是具体怎么推导还是没什么头绪，总之公式就是这样，先记录一下。
 					</dd>
+				</li>
+				<li>
+					<dt>20141024</dt>
+					<dd>陷入瓶颈的时候，最好先做自己擅长的事，找回状态后再去啃硬骨头</dd>
+				</li>
+				<li>
+					<dt>20141026</dt>
+					<dd>貌似子元素内含有transform的时候也会导致fixed父元素被其他的元素的偏移(如rotate3d)挡住，结果point-event无法触发。</dd>
 				</li>
 			</ul>
 		</section>
