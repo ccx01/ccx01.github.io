@@ -79,8 +79,8 @@ ul.index .date {
 }
 
 #site {
-  width:680px;
-  left: 18%;
+  width: 1280px;
+  margin: 0 auto;
   position: relative;
 }
 
