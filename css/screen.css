@@ -13,11 +13,7 @@ body {
 }
 
 body, pre, code{
-  font-family: Monaco, "Lucida Sans", Arial;
-}
-
-h1, h2 {
-  font-family: "微软雅黑", "华文黑体", "黑体";
+  font-family: "微软雅黑", Monaco, "Lucida Sans", Arial;
 }
 
 h1 { 
@@ -123,4 +119,9 @@ code {
 
 #disqus_thread {
   margin: 30px 10px;
+}
+
+.sub-title {
+  margin: 10px;
+  padding: 10px;
 }
