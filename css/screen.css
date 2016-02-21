@@ -19,7 +19,7 @@ body, pre, code{
 h1 { 
   font-size: 32px;
   padding:10px; 
-  margin: 35px 0;
+  margin: 35px 0 10px;
 }
 
 
@@ -109,6 +109,7 @@ pre {
   border:1px solid #ccc;
   background:#fafafa;
   padding: 10px;
+  overflow: scroll;
 }
 
 .highlight code {
