@@ -1,6 +1,6 @@
 ---
 layout: post
-title: three.js 入门介绍
+title: three.js 介绍
 ---
 最近沉迷口琴中，总觉得口琴比电脑游戏好玩多了……
 
@@ -30,13 +30,11 @@ threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/do
 
 首先，引入了threejs后我们需要把它的场景实例化：
 
-<code>
+```javascript
 var scene = new THREE.Scene();
-
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-
 var renderer = new THREE.WebGLRenderer();
-</code>
+```
 
 `THREE.Scene()`是必须最优先实例化的对象，它是整个threejs里其他对象存在的前提。如果threejs里的每个对象都是一个演员，那么`THREE.Scene()`就是他们的舞台，所以想要让演员开始排练，先要搭建好舞台。scene的实例化没有什么参数，直接`var scene = new THREE.Scene();`就行了。
 
@@ -58,11 +56,11 @@ render从代码角度分的话有好几种，具体就不列了，因为实际�
 
 终于轮到演员登场了。
 
-<code>
+```javascript
 var geometry = new THREE.BoxGeometry(1,1,1);
 var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
 var cube = new THREE.Mesh(geometry, material);
-</code>
+```
 
 可是因为这个是WEBGL渲染器，所以我一句话带过吧。-_____-|||
 
@@ -76,16 +74,14 @@ material是对象的材质，相当于演员的服装（皮肤）。这个少一
 
 `scene.add(cube);`把穿好衣服的演员放进舞台中，基本上就完成了，不过演员要动起来的话，就需要让时间运转起来。
 
-<code>
+```javascript
 var render = function () {
     requestAnimationFrame(render);
-
     cube.rotation.x += 0.1;
     cube.rotation.y += 0.1;
-
     renderer.render(scene, camera);
 };
-</code>
+```
 
 raq后舞台上的演员就开始表演了，这里唯一要了解的就是`renderer.render(scene, camera);`调用后会实时的刷新摄像头与场景。`renderer.render`是renderer的方法，与前面的raq循环的render没关系。
 
