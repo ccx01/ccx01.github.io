@@ -104,11 +104,11 @@ ul.index .date {
   font-size:12px;
 }
 
-code {
+pre {
   border-radius:3px;
   border:1px solid #ccc;
   background:#fafafa;
-  padding:0px 3px;
+  padding: 10px;
 }
 
 .highlight code {
