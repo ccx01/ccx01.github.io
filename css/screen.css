@@ -125,3 +125,14 @@ pre {
 .sub-title {
   padding: 10px;
 }
+
+.links {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.links li {
+  float: left;
+  margin-right: 50px;
+}
