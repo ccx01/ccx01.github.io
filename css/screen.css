@@ -20,5 +20,5 @@ pre{border-radius:3px;border:1px solid #ccc;background:#fafafa;padding:10px;over
 .highlight code{border:0 none;padding:0;background:none;}
 #disqus_thread{margin:30px 10px;}
 .sub-title{padding:10px;}
-.links{max-width:1280px;margin:10px auto;position:relative;overflow:hidden;padding-left:60px;}
+.links{max-width:1280px;margin:10px auto;position:relative;overflow:hidden;}
 .links li{display:inline-block;margin-right:50px;}
