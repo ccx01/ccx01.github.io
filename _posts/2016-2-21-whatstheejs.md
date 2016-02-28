@@ -1,6 +1,8 @@
 ---
 layout: post
 title: three.js 介绍
+keywords: Sign,Sign的博客,技术文章,web开发,threejs介绍
+description: 简单的介绍了threejs的第一课 Creating a scene
 ---
 最近沉迷口琴中，总觉得口琴比电脑游戏好玩多了……
 
