@@ -72,7 +72,7 @@ threejs有两种摄像头。
 
 **`·setLens ( focalLength, frameSize )`**
 
-鱼眼系统，因为的确是圆的，所以我们看到的东西除了线性透视外有时候还会有一定弧度，这个方法就是用来产生弧度效果，具体可参照这篇文章，有对应的算法……[http://www.bobatkins.com/photography/technical/field_of_view.html](http://www.bobatkins.com/photography/technical/field_of_view.html)
+鱼眼系统，因为的确是圆的，所以我们看到的东西除了线性透视外有时候还会有一定弧度，这个方法就是用来产生弧度效果，具体可参照这篇文章，有对应的算法……[鱼眼效果](http://www.bobatkins.com/photography/technical/field_of_view.html)
 
 ![鱼眼效果](/img/2016-3-13-threejs-camera/e8.png)
 
