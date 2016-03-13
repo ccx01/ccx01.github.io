@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - cameras</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				color: #808080;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+
+				background-color: #000;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
+				z-index: 100;
+			}
+
+			a {
+
+				color: #0080ff;
+			}
+
+			b { color: lightgreen }
+
+			#stats { position: absolute; top:0; left: 0 }
+			#stats #fps { background: transparent !important }
+			#stats #fps #fpsText { color: #777 !important }
+			#stats #fps #fpsGraph { display: none }
+
+			/* 摄像头自定义 */
+			.ctl {
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 999;
+				opacity: 0.5;
+			}
+			.ctl label {
+				float: left;
+				width: 50px;
+			}
+			.o {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div id="info"><a href="http://threejs.org" target="_blank">three.js</a> - cameras<br/> -->
+		<!-- <b>O</b> orthographic <b>P</b> perspective -->
+		<!-- </div> -->
+
+
+		<div class="ctl">
+
+			<label>x:</label> <input onchange='changeRig("x",this.value);' type="range" min="-10" max="10" value="1"><br>
+			<label>y:</label> <input onchange='changeRig("y",this.value);' type="range" min="-10" max="10" value="1"><br>
+			<label>z:</label> <input onchange='changeRig("z",this.value);' type="range" min="-10" max="10" value="1"><br><br>
+
+			<div class="p">
+				<label>fov:   </label> <input onchange='changeCamera("fov",this.value);' type="range" min="1" max="90" value="50"><br>
+				<label>aspect:</label> <input onchange='changeCamera("aspect",this.value);' type="range" min="1" max="5"><br>
+				<label>near:  </label> <input onchange='changeCamera("near",this.value);' type="range" min="1" max="300" value="50"><br>
+				<label>far:   </label> <input onchange='changeCamera("far",this.value);' type="range" min="100" max="1000" value="1000"><br>
+				<label>zoom:   </label> <input onchange='changeCamera("zoom",this.value);' type="range" min="1" max="5" value="1"><br>
+			</div>
+			<div class="o">
+				<label>left:   </label> <input onchange='changeOCamera("left",this.value);' type="range" min="-500" max="0" value="-500"><br>
+				<label>right:   </label> <input onchange='changeOCamera("right",this.value);' type="range" min="0" max="500" value="500"><br>
+				<label>top:   </label> <input onchange='changeOCamera("top",this.value);' type="range" min="0" max="500" value="500"><br>
+				<label>bottom:   </label> <input onchange='changeOCamera("bottom",this.value);' type="range" min="-500" max="0" value="-500"><br>
+				<label>near:  </label> <input onchange='changeOCamera("near",this.value);' type="range" min="1" max="300" value="150"><br>
+				<label>far:   </label> <input onchange='changeOCamera("far",this.value);' type="range" min="100" max="1000" value="1000"><br>
+				<label>zoom:   </label> <input onchange='changeOCamera("zoom",this.value);' type="range" min="1" max="5" value="1"><br>
+			</div>
+
+			<br>
+
+			<div class="switch">
+				<a href="javascript:switchO();">切换正投镜头</a>
+				<a href="javascript:switchP();">切换透视镜头</a>
+			</div>
+		</div>
+
+        <script src="/js/three.min.js"></script>
+
+		<script>
+
+			var SCREEN_WIDTH = window.innerWidth;
+			var SCREEN_HEIGHT = window.innerHeight;
+
+			var container;
+			var camera, scene, renderer, mesh;
+			var cameraRig, activeCamera, activeHelper;
+			var cameraPerspective, cameraOrtho;
+			var cameraPerspectiveHelper, cameraOrthoHelper;
+
+			var camera_rig = {x:1, y:1, z:1};
+
+			var camera_w = SCREEN_WIDTH;
+			var camera_h = SCREEN_HEIGHT * 0.5;
+
+			if(navigator.platform.indexOf('Win32')!=-1) {
+			    //pc
+				var camera_w = SCREEN_WIDTH * 0.5;
+				var camera_h = SCREEN_HEIGHT;
+		    }else{ 
+		     	//mobile
+				var camera_w = SCREEN_WIDTH;
+				var camera_h = SCREEN_HEIGHT * 0.5;
+		    } 
+
+			init();
+			animate();
+
+			function changeRig(axis, val) {
+				camera_rig[axis] = parseInt(val);
+			}
+
+			function changeCamera(para, val) {
+				cameraPerspective[para] = parseInt(val);
+			}
+
+			function changeOCamera(para, val) {
+				cameraOrtho[para] = parseInt(val);
+			}
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				scene = new THREE.Scene();
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 50, camera_w / camera_h, 1, 10000 );
+				camera.position.z = 2500;
+
+				cameraPerspective = new THREE.PerspectiveCamera( 50, camera_w / camera_h, 150, 1000 );
+
+				cameraPerspectiveHelper = new THREE.CameraHelper( cameraPerspective );
+				scene.add( cameraPerspectiveHelper );
+
+				//
+
+				cameraOrtho = new THREE.OrthographicCamera( camera_w / - 2, camera_w / 2, camera_h / 2, camera_h / - 2, 150, 1000 );
+
+				cameraOrthoHelper = new THREE.CameraHelper( cameraOrtho );
+				scene.add( cameraOrthoHelper );
+
+				//
+
+				activeCamera = cameraPerspective;
+				activeHelper = cameraPerspectiveHelper;
+
+
+				// counteract different front orientation of cameras vs rig
+
+				cameraOrtho.rotation.y = Math.PI;
+				cameraPerspective.rotation.y = Math.PI;
+
+				cameraRig = new THREE.Group();
+
+				cameraRig.add( cameraPerspective );
+				cameraRig.add( cameraOrtho );
+
+				scene.add( cameraRig );
+
+				//
+
+				mesh = new THREE.Mesh(
+					new THREE.BoxGeometry( 100, 100, 100 ),
+					new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true } )
+				);
+				scene.add( mesh );
+
+				var mesh2 = new THREE.Mesh(
+					new THREE.SphereBufferGeometry( 50, 16, 8 ),
+					new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } )
+				);
+				mesh2.position.x = 300;
+				mesh2.position.z = 300;
+				mesh2.position.y = 300;
+
+				mesh.add( mesh2 );
+
+				var mesh3 = new THREE.Mesh(
+					new THREE.SphereBufferGeometry( 5, 16, 8 ),
+					new THREE.MeshBasicMaterial( { color: 0x0000ff, wireframe: true } )
+				);
+				mesh3.position.z = 150;
+				cameraRig.add( mesh3 );
+
+				mesh.position.x = 300;
+				mesh.position.z = 300;
+				mesh.position.y = 300;
+
+				//
+
+				var geometry = new THREE.Geometry();
+
+				for ( var i = 0; i < 100; i ++ ) {
+
+					var vertex = new THREE.Vector3();
+					vertex.x = THREE.Math.randFloatSpread( 2000 );
+					vertex.y = THREE.Math.randFloatSpread( 2000 );
+					vertex.z = THREE.Math.randFloatSpread( 2000 );
+
+					geometry.vertices.push( vertex );
+
+				}
+
+				var particles = new THREE.Points( geometry, new THREE.PointsMaterial( { color: 0x888888 } ) );
+				scene.add( particles );
+
+				//
+
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.domElement.style.position = "relative";
+				container.appendChild( renderer.domElement );
+
+				renderer.autoClear = false;
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+				document.addEventListener( 'keydown', onKeyDown, false );
+
+			}
+
+			//
+
+			function onKeyDown ( event ) {
+
+				switch( event.keyCode ) {
+
+					case 79: /*O*/
+
+						switchO();
+
+						break;
+
+					case 80: /*P*/
+
+						switchP();
+
+						break;
+
+				}
+
+			}
+
+			function switchO() {
+				activeCamera = cameraOrtho;
+				activeHelper = cameraOrthoHelper;
+				document.querySelector(".p").style.display = "none";
+				document.querySelector(".o").style.display = "block";
+			}
+
+			function switchP() {
+				activeCamera = cameraPerspective;
+				activeHelper = cameraPerspectiveHelper;
+				document.querySelector(".o").style.display = "none";
+				document.querySelector(".p").style.display = "block";
+			}
+
+			//
+
+			function onWindowResize( event ) {
+
+				SCREEN_WIDTH = window.innerWidth;
+				SCREEN_HEIGHT = window.innerHeight;
+
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+				camera.aspect = camera_w / camera_h;
+				camera.updateProjectionMatrix();
+
+				cameraPerspective.aspect = camera_w / camera_h;
+				cameraPerspective.updateProjectionMatrix();
+
+				cameraOrtho.left   = - camera_w / 2;
+				cameraOrtho.right  =   camera_w / 2;
+				cameraOrtho.top    =   camera_h / 2;
+				cameraOrtho.bottom = - camera_h / 2;
+				cameraOrtho.updateProjectionMatrix();
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+
+			}
+
+
+
+			function render() {
+
+				var r = Date.now() * 0.0005;
+
+				mesh.rotation.x = Math.cos( r );
+				mesh.rotation.z = Math.sin( r );
+				mesh.rotation.y = Math.sin( r );
+
+				mesh.children[ 0 ].position.x = 70 * Math.cos( r );
+				mesh.children[ 0 ].position.y = 70 * Math.sin( r );
+
+				if ( activeCamera === cameraPerspective ) {
+
+					// cameraPerspective.fov = 35 + 30 * Math.sin( 0.5 * r );
+					// cameraPerspective.far = mesh.position.length();
+					cameraPerspective.updateProjectionMatrix();
+
+					cameraPerspectiveHelper.update();
+					cameraPerspectiveHelper.visible = true;
+
+					cameraOrthoHelper.visible = false;
+
+				} else {
+
+					// cameraOrtho.far = mesh.position.length();
+					cameraOrtho.updateProjectionMatrix();
+
+					cameraOrthoHelper.update();
+					cameraOrthoHelper.visible = true;
+
+					cameraPerspectiveHelper.visible = false;
+
+				}
+
+				// cameraRig.lookAt( mesh.position );
+				cameraRig.lookAt( camera_rig );
+
+				renderer.clear();
+
+				activeHelper.visible = false;
+
+				renderer.setViewport( 0, 0, camera_w, camera_h );
+				renderer.render( scene, activeCamera );
+
+				activeHelper.visible = true;
+
+				renderer.setViewport( SCREEN_WIDTH - camera_w, SCREEN_HEIGHT - camera_h, camera_w, camera_h );
+				renderer.render( scene, camera );
+
+			}
+
+
+		</script>
+
+	</body>
+</html>

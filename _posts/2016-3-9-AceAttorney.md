@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 【游戏里的人生】逆转裁判
+title: 逆转裁判【另一个次元的人生】
 keywords: Sign,Sign的博客,游戏人生,哲学,逆转裁判
 description: 那些隐藏在游戏里的人生哲理——逆转裁判
 ---
