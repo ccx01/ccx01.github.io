@@ -1,8 +1,8 @@
-﻿---
+---
 layout: post
-title: 场景介绍【three.js】
+title: 创建场景【threejs】
 keywords: Sign,Sign的博客,技术文章,web开发,threejs介绍
-description: 简单的介绍了threejs的第一课 Creating a scene
+description: 简单的介绍了threejs的第一课创建场景
 tags: [threejs, web]
 ---
 最近沉迷口琴中，总觉得口琴比电脑游戏好玩多了……
@@ -101,3 +101,4 @@ raq后舞台上的演员就开始表演了，这里唯一要了解的就是`rend
 呐，谁能保证没有喜欢听废话的人呢。
 
 而且学习过程中，多一个版本的教程就是多一个方法，比较不同人的教程也是学习中一个很重要的过程……
+
