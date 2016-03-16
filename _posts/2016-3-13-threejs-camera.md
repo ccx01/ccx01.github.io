@@ -3,7 +3,7 @@ layout: post
 title: 摄像头原理【threejs】
 keywords: Sign,Sign的博客,技术文章,web开发,threejs摄像头原理
 description: 解析threejs透视实现原理，用参数来进行直接的演示
-tags: [threejs,web前端]
+tags: [threejs, web]
 ---
 *一大段碎碎念，可跳过*
 
