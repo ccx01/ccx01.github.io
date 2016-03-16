@@ -4,7 +4,6 @@ layout: default
 
 <header id="post-header">
     <h1 id="post-title">{{ page.tag }}</h1>
-    <h4 id="post-subtitle">Articles by tag</h4>
 </header>
 
 <div id="post-content">
@@ -23,7 +22,7 @@ layout: default
                 {% endif %}
             {% endif %}
             
-            <a href="{{ post.url }}/" class="list-group-item">
+            <a href="{{ post.url }}" class="list-group-item">
                 <h4 class="list-group-item-heading">{{ post.title }}</h4>
             </a>
 

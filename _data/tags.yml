@@ -1,2 +1,14 @@
-- slug: jekyll
-  name: Jekyll
+- slug: metaphysics
+  name: 形而上学
+
+- slug: winded
+  name: 碎碎念
+
+- slug: threejs
+  name: threejs
+
+- slug: web
+  name: web前端
+
+- slug: game
+  name: 游戏
