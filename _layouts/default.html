@@ -17,33 +17,15 @@
 
 <ul class="links">
   <li>
-    <a href="http://ccx01.com/">碎碎念</a>
+    <a href="http://ccx01.github.io/">home</a>
+  </li>
+  <li>
+    <a href="http://ccx01.com/">about me</a>
   </li>
   <li>
     <a href="https://github.com/ccx01">github</a>
   </li>
-  {{ tags_content }}
 </ul>
-
-{% assign post = page %}
-
-{% if post.tags.size > 0 %}
-    {% for post_tag in post.tags %}
-        {% for data_tag in site.data.tags %}
-            {% if data_tag.slug == post_tag %}
-                {% assign tag = data_tag %}
-            {% endif %}
-        {% endfor %}
-        {% if tag %}
-            {% capture tags_content_temp %}{{ tags_content }}<li><a href="/blog/tag/{{ tag.slug }}">{{ tag.name }}</a></li>{% if forloop.last == false %}, {% endif %}{% endcapture %}
-            {% assign tags_content = tags_content_temp %}
-        {% endif %}
-    {% endfor %}
-{% else %}
-    {% assign tags_content = '' %}
-{% endif %}
-
-<p id="post-meta">{{ tags_content }}</p>
 
 <div id="site">
   {{ content }}

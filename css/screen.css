@@ -9,9 +9,10 @@ h2{font-size:24px;margin:35px 0 25px;}
 #post p{margin:15px 0;line-height:24px;}
 a{color:#0567ba;text-decoration:none}
 a:hover{text-decoration:underline;}
-ul.index{margin:20px 10px;line-height:30px;}
-ul.index li{margin:0;color:#808080;list-style:none;}
-ul.index .date{color:#808080;margin-right:5px;}
+.index{margin:20px 10px;line-height:30px;}
+.index li{margin:0;color:#808080;list-style:none;}
+.index .date{color:#808080;margin-right:5px;}
+.post{margin:10px 10px 40px;}
 #site{max-width:1280px;margin:0 auto;position:relative;}
 #post{margin:10px;}
 #footer{color:#808080;padding:10px;margin:30px 0 15px;}
