@@ -22,13 +22,13 @@ tags: [threejs, web]
 
 原本打算直接开始细讲threejs里的camera，不过之前一篇也说过了，深浅这种东西还是要拿捏一下，所以还是从0开始讲。
 
-threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene){:target="_blank"}
+threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene)
 
 最后制作按照官方流程制作完成是这样的一个场景，转动的绿色立方体：
 
 ![转动的绿色立方体](/img/2016-2-21-whatstheejs/e1.png)
 
-动图截失败了，可以点链接直接过去看，要加载个400+k的文件，悠着点……[效果](/example/2016-2-21-whatstheejs/3d.html){:target="_blank"}
+动图截失败了，可以点链接直接过去看，要加载个400+k的文件，悠着点……[效果](/example/2016-2-21-whatstheejs/3d.html)
 
 现在我们看一下这400k+的threejs在这个旋转的立方体上做的什么。（实际上400k+中大部分代码什么事都没做……）
 
@@ -48,7 +48,7 @@ var renderer = new THREE.WebGLRenderer();
 
 接下来是渲染器renderer，继续用舞台表演来解释的话，渲染器就相当于舞蹈团，选择哪个渲染器就只能使用对应渲染器的对象，你请了对应舞蹈团自然就是让该舞蹈团的成员登到舞台上表演。
 
-render从代码角度分的话有好几种，具体就不列了，因为实际应用中主要还是分为`CSS3D` `CANVAS` `WEBGL`3种。示例中使用的是WEBGL渲染器`THREE.WebGLRenderer()`，这个也是threejs主要处理的渲染器。但实际上CSS3D是最简单的一个渲染器，上手任意，而且效果很赞，比如[3d元素周期表](http://threejs.org/examples/#css3d_periodictable){:target="_blank"}就是CSS3D渲染器制作，如果提取出CSS3D渲染器进行压缩，整个库就只有70+k，所以在threejs的学习中，建议先从css3d渲染器入手。
+render从代码角度分的话有好几种，具体就不列了，因为实际应用中主要还是分为`CSS3D` `CANVAS` `WEBGL`3种。示例中使用的是WEBGL渲染器`THREE.WebGLRenderer()`，这个也是threejs主要处理的渲染器。但实际上CSS3D是最简单的一个渲染器，上手任意，而且效果很赞，比如[3d元素周期表](http://threejs.org/examples/#css3d_periodictable)就是CSS3D渲染器制作，如果提取出CSS3D渲染器进行压缩，整个库就只有70+k，所以在threejs的学习中，建议先从css3d渲染器入手。
 
 不过示例既然是以WEBGL渲染器来制作，那么继续讲解一下WEBGL渲染器吧。
 
