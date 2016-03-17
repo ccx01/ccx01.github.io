@@ -1,4 +1,4 @@
----
+﻿---
 layout: post
 title: 创建场景【threejs】
 keywords: Sign,Sign的博客,技术文章,web开发,threejs介绍
@@ -21,7 +21,7 @@ tags: [threejs, web]
 
 原本打算直接开始细讲threejs里的camera，不过之前一篇也说过了，深浅这种东西还是要拿捏一下，所以还是从0开始讲。
 
-threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene)
+threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene){:target="_blank"}
 
 最后制作按照官方流程制作完成是这样的一个场景，转动的绿色立方体：
 
