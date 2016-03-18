@@ -27,5 +27,5 @@ pre code{border:0;padding:0;}
 .links li{display:inline-block;margin-right:20px;padding-left:10px;}
 #post img{max-width:100%;}
 #post-meta{padding:10px;}
-#post-meta a,.links a{padding:5px 10px;background-color:#1DC4FF;border-radius:4px;color:#fff;}
+#post-meta a,.links a,.demo{padding:5px 10px;background-color:#1DC4FF;border-radius:4px;color:#fff;}
 #post-meta a{margin-right:10px;}

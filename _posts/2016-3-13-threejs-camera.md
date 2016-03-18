@@ -53,7 +53,7 @@ threejs有两种摄像头。
 
 ![透视镜头](/img/2016-3-13-threejs-camera/e3.png)
 
-对应的参数也不同，[透视镜头](http://threejs.org/docs/index.html#Reference/Cameras/PerspectiveCamera)
+对应的参数也不同，<a href="http://threejs.org/docs/index.html#Reference/Cameras/PerspectiveCamera" target="_blank">透视镜头</a>
 
 `PerspectiveCamera( fov, aspect, near, far )`
 
@@ -75,7 +75,8 @@ threejs有两种摄像头。
 
 **`·setLens ( focalLength, frameSize )`**
 
-鱼眼系统，因为地球是圆的，所以我们看到的东西除了线性透视外有时候还会有一定弧度，这个方法就是用来产生弧度效果，具体可参照这篇文章，有对应的算法……[鱼眼效果](http://www.bobatkins.com/photography/technical/field_of_view.html)
+鱼眼系统，因为地球是圆的，所以我们看到的东西除了线性透视外有时候还会有一定弧度，这个方法就是用来产生弧度效果，具体可参照这篇文章，有对应的算法……  
+<a href="http://www.bobatkins.com/photography/technical/field_of_view.html" target="_blank">鱼眼效果</a>
 
 ![鱼眼效果](/img/2016-3-13-threejs-camera/e8.jpg)
 
@@ -109,7 +110,7 @@ threejs有两种摄像头。
 
 至于这两种镜头官网有个示例，我稍微改了下，用来让大家可以更直观的了解里面的参数(xyz用来调整镜头朝向)。
 
-[透视镜头与正投镜头参数调整](/example/2016-3-13-threejs-camera/camera.html)
+<a href="/example/2016-3-13-threejs-camera/camera.html" target="_blank" class="demo">透视镜头与正投镜头参数调整</a>
 
 ![透视镜头与正投镜头](/img/2016-3-13-threejs-camera/e9.png)
 
