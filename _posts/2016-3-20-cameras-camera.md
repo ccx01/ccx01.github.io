@@ -5,7 +5,7 @@ keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
 tags: [threejs, web]
 ---
-# <a href="http://threejs.org/docs/index.html#Reference/Cameras/Camera" target="_blank">英文API地址</a>
+<a href="http://threejs.org/docs/index.html#Reference/Cameras/Camera" target="_blank">英文API地址</a>
 
 ## 摄像头Camera
 
@@ -60,3 +60,7 @@ camera — 复制摄像头
 <a href="http://threejs.org/docs/index.html#Reference/Math/Matrix4" target="_blank">Matrix4（英文地址，中文更新中）</a>
 
 <a href="http://threejs.org/docs/index.html#Reference/Math/Vector3" target="_blank">Vector3（英文地址，中文更新中）</a>
+
+#### 英文API地址:
+
+<a href="http://threejs.org/docs/index.html#Reference/Cameras/Camera" target="_blank">http://threejs.org/docs/index.html#Reference/Cameras/Camera</a>
