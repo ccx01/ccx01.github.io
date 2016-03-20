@@ -5,17 +5,19 @@ keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
 tags: [threejs, web]
 ---
-##摄像头Camera
+# <a href="http://threejs.org/docs/index.html#Reference/Cameras/Camera" target="_blank">英文API地址</a>
+
+## 摄像头Camera
 
 摄像头对象的基础类，但你创建一个新的摄像头对象时，这个类将被继承。
 
-###构造函数
+### 构造函数
 
 Camera()
 
 构造函数将matrixWorldInverse和projectionMatrix设定到正确的类型。
 
-###属性
+### 属性
 
 .matrixWorldInverse
 
@@ -25,7 +27,7 @@ matrixWorld的逆反矩阵，matrixWorld是摄像头在全局内变换时的矩�
 
 投影矩阵。
 
-###方法
+### 方法
 
 .getWorldDirection (vector)
 
@@ -45,11 +47,11 @@ camera — 复制摄像头
 
 这个方法返回摄像头的复制对象。
 
-###源码
+### 源码
 
 <a href="https://github.com/mrdoob/three.js/blob/master/src/cameras/Camera.js" target="_blank">https://github.com/mrdoob/three.js/blob/master/src/cameras/Camera.js</a>
 
-####附：
+#### 附：
 
 涉及到的api
 
