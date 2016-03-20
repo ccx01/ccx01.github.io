@@ -5,8 +5,6 @@ keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
 tags: [threejs, web]
 ---
-<a href="http://threejs.org/docs/index.html#Reference/Cameras/Camera" target="_blank">英文API地址</a>
-
 ## 摄像头Camera
 
 摄像头对象的基础类，但你创建一个新的摄像头对象时，这个类将被继承。
