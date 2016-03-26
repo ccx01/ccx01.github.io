@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<meta name="robots" content="all">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>留学</title>
+		<meta name="mobile-agent" content="format=html5;url=http://ccx01.com">
+		<meta name="applicable-device" content="mobile">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name ="keywords" content="留学">
+		<meta name="description" content="留学中介渠道联盟，为您量身打造最合适的留学中介">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<header class="header">
+		    <a href="index.html" class="back">返回</a>
+		</header>
+		<scetion>
+			<div class="agent">
+				<div class="agent-img">
+					<img src="http://e.hiphotos.baidu.com/baike/c0%3Dbaike72%2C5%2C5%2C72%2C24/sign=31c312f7960a304e462fa8a8b0a1cce3/a8014c086e061d95c6a751cb7af40ad163d9ca64.jpg">
+				</div>
+				<div class="agent-info">
+					<p class="agent-name">新东方</p>
+					<p class="agent-addr">地址：上海市杨浦区xxxx</p>
+					<p class="agent-tel">电话：<tel>02151028830</tel></p>
+					<p class="agent-site">网站：<a href="http://www.ez4agent.com">www.ez4agent.com</a></p>
+					<p class="agent-detail">新东方介绍</p>
+				</div>
+				<ul class="agent-tab">
+					<li class="ac">推荐：2</li>
+					<li>评论：4</li>
+					<li>报错</li>
+				</ul>
+				<ul class="agent-tab-box">
+					<li class="agent-tab-cont ac">
+						<div class="agent-recommend">
+							<p>这些用户对xxx老师进行了推荐</p>
+							<ul>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+								<li><img src="http://file.ez4agent.com/show?imageName=aa605591722082293ed5945cf86f709d.jpg"></li>
+							</ul>
+							<form>
+								<input type="submit" class="submit" value="推荐">
+							</form>
+						</div>
+					</li>
+					<li class="agent-tab-cont">
+						<div class="agent-comment">
+							<ul>
+								<li>
+									<p class="agent-comment-h1">[好评]用户xxx在2015年1月1日对xxx老师进行评论：</p>
+									<p class="agent-comment-cont">老师不错</p>
+								</li>
+								<li>
+									<p class="agent-comment-h1">[好评]用户xxx在2015年1月1日对xxx老师进行评论：</p>
+									<p class="agent-comment-cont">老师不错</p>
+								</li>
+								<li>
+									<p class="agent-comment-h1">[好评]用户xxx在2015年1月1日对xxx老师进行评论：</p>
+									<p class="agent-comment-cont">老师不错</p>
+								</li>
+							</ul>
+							<div class="agent-comment-user">
+								<select>
+									<option value="1">好评</option>
+									<option value="1">差评</option>
+									<textarea></textarea>
+									<input type="submit" class="submit" value="确认">
+								</select>
+							</div>
+						</div>
+					</li>
+					<li class="agent-tab-cont">
+						<div class="agent-report">
+							<form>
+								<select>
+									<option value="1">电话有误</option>
+									<option value="1">地址有误</option>
+								</select>
+								<textarea></textarea>
+								<input type="submit" class="submit" value="确认">
+							</form>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</scetion>
+		<script>
+			function agentBox(i) {
+				document.querySelector(".agent-tab li.ac").className = "";
+				document.querySelectorAll(".agent-tab li")[i].className = "ac";
+				document.querySelector(".agent-tab-cont.ac").className = "agent-tab-cont";
+				document.querySelectorAll(".agent-tab-cont")[i].className = "agent-tab-cont ac";
+			}
+
+			var agent_li = document.querySelectorAll(".agent-tab li");
+			for (var i = 0; i < agent_li.length; i++) {
+				(function(i){
+					agent_li[i].onclick = function() {
+						agentBox(i);
+					}
+				}(i));
+			};
+		</script>
+	</body>
+</html>
