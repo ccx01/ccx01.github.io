@@ -3,7 +3,7 @@ layout: post
 title: Camera【threejs】[API]
 keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
-tags: [threejs, web]
+tags: [api]
 ---
 基类Camera的API
 
@@ -55,11 +55,11 @@ camera — 复制摄像头
 
 涉及到的api
 
-<a href="http://threejs.org/docs/index.html#Reference/Core/Object3D" target="_blank">Object3D（英文地址，中文更新中）</a>
+<a href="http://ccx01.github.io/post/core-object3d" target="_blank">3d对象Object3D</a>
 
-<a href="http://threejs.org/docs/index.html#Reference/Math/Matrix4" target="_blank">Matrix4（英文地址，中文更新中）</a>
+<a href="http://threejs.org/docs/index.html#Reference/Math/Matrix4" target="_blank">矩阵Matrix4（英文地址，中文更新中）</a>
 
-<a href="http://threejs.org/docs/index.html#Reference/Math/Vector3" target="_blank">Vector3（英文地址，中文更新中）</a>
+<a href="http://threejs.org/docs/index.html#Reference/Math/Vector3" target="_blank">向量Vector3（英文地址，中文更新中）</a>
 
 #### 英文API地址:
 
