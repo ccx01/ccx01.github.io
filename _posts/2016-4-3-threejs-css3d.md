@@ -85,7 +85,7 @@ var element = document.querySelector(".element");
 var object = new THREE.CSS3DObject( element );
 ```
 
-这时得到的object就是<a href="http://ccx01.github.io/post/core-object3d" target="_blank">object3d对象</a>。
+将dom元素element转换为object，这时得到的object就是<a href="http://ccx01.github.io/post/core-object3d" target="_blank">object3d对象</a>。
 
 ```javascript
 scene.add( object );
@@ -97,19 +97,11 @@ scene.add( object );
 
 好了，css3d就是这么，简单，本文到此结束。
 
-
-
-
-
-
-
-
-
 ![啪](/img/2016-4-3-threejs-css3d/e3.jpg)
 
 好吧，要实现<a href="http://threejs.org/examples/#css3d_periodictable" target="_blank">3d元素周期表</a>的效果，只是添加一个元素是不够的。但实际上也足够了，其余的生成方式与这第一个元素的生成方式是一样的。
 
-在批量生成新的元素之前，我们想看看，我们生成的这一个元素在dom里是什么样的。
+在批量生成新的元素之前，我们先看看，我们生成的这一个元素在dom里是什么样的。
 
 ```html
 <div id="container">
@@ -126,7 +118,7 @@ scene.add( object );
 </div>
 ```
 
-这样子了解了么？是不是很简单？所有的3d效果其实就是改变元素的transform属性里的matrix3d。webgl与canvas其实也是同理，只是css3d相对更易查看。不过matrix3d也放在后面几篇讲。
+所有的3d效果其实就是改变元素的transform属性里的matrix3d。webgl与canvas其实也是同理，只是css3d相对更易查看。不过matrix3d也放在后面几篇讲。
 
 接下来制作类似3d元素周期表效果。
 
@@ -153,16 +145,16 @@ var object = new THREE.CSS3DObject( element );
     scene.add( object );
 ```
 
-如果希望在一开始就进行动画，可以在插入场景后，再一次初始化
+如果希望在一开始就进行动画，可以在插入场景后，再一次设置新的position
 
 ```javascript
-object = new THREE.Object3D();
+object = new THREE.Object3D();  //构造函数
 object.position.x = Math.random() * w * 2 - w;
 object.position.y = Math.random() * h * 2 - h;
 object.position.z = Math.random() * w * 2 - w;
 ```
 
-这样就得到两组object的position,这样就能使用tween进行过渡动画。
+这样就得到两组object的position,就能使用tween进行过渡动画。
 
 除了改变position外，我们还能调整元素的rotation，直接修改属性，使用方法和上面的position是一样的，不过如果我们想要一些特殊的旋转角度，我们会用到.lookAt方法，这个方法是使当前对象指向向量点。
 
@@ -241,4 +233,4 @@ controls.maxDistance = 3000;	//最大深度
 controls.addEventListener( 'change', render );
 ```
 
-这篇先讲到这里吧，后面开始都是算法的领域。如果觉得这个还是看的云里雾里的同学可以吱个声，我之后会用更通俗的方法去介绍，嫌太简单的同学自己去看API。
+这篇先讲到这里吧，后面开始都是算法的领域。如果觉得这个还是看的云里雾里的同学可以吱个声，嫌太简单的同学自己去看API。
