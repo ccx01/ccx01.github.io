@@ -233,4 +233,4 @@ controls.maxDistance = 3000;	//最大深度
 controls.addEventListener( 'change', render );
 ```
 
-这篇先讲到这里吧，后面开始都是算法的领域。如果觉得这个还是看的云里雾里的同学可以吱个声，嫌太简单的同学自己去看API。
+这篇先讲到这里吧，后面开始都是算法的领域。
