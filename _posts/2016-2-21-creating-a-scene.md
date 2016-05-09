@@ -5,23 +5,6 @@ keywords: Sign,Sign的博客,技术文章,web开发,threejs介绍
 description: 简单的介绍了threejs的第一课创建场景
 tags: [threejs, web]
 ---
-
-最近沉迷口琴中，总觉得口琴比电脑游戏好玩多了……
-
-如果你对一件事感兴趣，不管有多困难，你都会有一万种方法去完成……为了吹口琴，我甚至开始读五线谱……以后大概也会写一些口琴相关的代码吧。
-
-这也不是第一次对一件事这么狂热，上一次貌似就是学习制作游戏的时候……不过已经是多年前……
-
-这种热情要是点在某些技能点上就好了……
-
-――――――――――
-
-**下面是正文**
-
-――――――――――
-
-原本打算直接开始细讲threejs里的camera，不过之前一篇也说过了，深浅这种东西还是要拿捏一下，所以还是从0开始讲。
-
 threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene){:target="_blank"}
 
 最后制作按照官方流程制作完成是这样的一个场景，转动的绿色立方体：
