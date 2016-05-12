@@ -13,7 +13,7 @@ threejs官网有个场景创建的示例[Creating a scene](http://threejs.org/do
 
 动图截失败了，可以点链接直接过去看，要加载个400+k的文件，悠着点……[效果](/example/2016-2-21-whatstheejs/3d.html){:target="_blank"}
 
-现在我们看一下这400k+的threejs在这个旋转的立方体上做的什么。（实际上400k+中大部分代码什么事都没做……）
+现在我们看一下这400k+的threejs在这个旋转的立方体上做的什么。
 
 首先，引入了threejs后我们需要把它的场景实例化：
 
