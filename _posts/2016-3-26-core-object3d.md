@@ -245,9 +245,9 @@ angle -- 弧度角
 
 涉及到的api
 
-<a href="http://ccx01.github.io/post/math-matrix4" target="_blank">矩阵Matrix4</a>
+<a href="http://ccx01.github.io/post/math-matrix4" target="_blank">四维矩阵Matrix4</a>
 
-<a href="http://threejs.org/docs/index.html#Reference/Math/Vector3" target="_blank">向量Vector3（英文地址，中文更新中）</a>
+<a href="http://ccx01.github.io/post/math-vector3" target="_blank">三维向量Vector3</a>
 
 <a href="http://threejs.org/docs/index.html#Reference/Math/Euler" target="_blank">欧拉Euler（英文地址，中文更新中）</a>
 

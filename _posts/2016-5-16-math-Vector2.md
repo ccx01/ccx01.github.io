@@ -5,7 +5,7 @@ keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
 tags: [api]
 ---
-## 二维向量
+二维向量
 
 示例
 
@@ -15,6 +15,8 @@ tags: [api]
 
 	var d = a.distanceTo( b );
 ```
+
+## 二维向量
 
 ### 构造函数
 
@@ -31,8 +33,6 @@ y -- 向量的x值，浮点数
 **.x**
 
 **.y**
-
-矩阵值列表（列优先）。
 
 ### 方法
 
