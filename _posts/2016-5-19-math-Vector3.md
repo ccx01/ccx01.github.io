@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Vector2【threejs】[API]
+title: Vector3【threejs】[API]
 keywords: Sign,Sign的博客,技术文章,web开发,threejs中文API
 description: 将官网的api翻译为中文
 tags: [api]
