@@ -176,11 +176,3 @@ tags: [winded]
 附：
 
 <a href="http://www.zhihu.com/question/27933929" target="_blank">既然 iOS 8 的开机密码无法破解，小偷偷了 iPhone 6 会怎样处理呢？</a>
-
-————————
-
-![平行宇宙](/img/2016-4-30-flow/qr.jpg)
-
-这里记录了另一个宇宙的故事。
-
-微信订阅号，只发小故事和小游戏。
