@@ -92,3 +92,5 @@ tags: [metaphysics, acg]
 对了，狮子王里，个人感觉最帅的镜头就是木法沙把辛巴毫发无伤的救上来以后，自己又跌落到牛群里，然后靠自己的力量再次从牛群里一跃而起，那个瞬间，完全沦为木法沙粉丝。
 
 ![木法沙](/img/2016-6-9-zootopia/e7.jpg)
+
+<a href="http://www.bilibili.com/video/av4749812/" target="_blank">【花絮】Zootopia 疯狂动物城/动物乌托邦(2016)被删减场景合集</a>
