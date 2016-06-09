@@ -2,11 +2,11 @@ body,pre,ul,li{padding:0;margin:0;}
 ul{margin:15px 20px;}
 body{font-size:14px;line-height:1.5;}
 body,pre,code{font-family:"微软雅黑",Monaco,"Lucida Sans",Arial;}
-h1{font-size:20px;padding:10px;}
-h2{font-size:18px;}
+h1{font-size:16px;padding:10px;}
+h2{font-size:14px;}
 #post-title{border-bottom:1px solid #e7e7eb;}
 #post-date{margin-bottom:18px;line-height:20px;color:#ccc;}
-#post h3{font-size:16px;margin:25px 0 15px;}
+#post h3{font-size:14px;margin:25px 0 15px;}
 #post h3:before{content:'';display:block;float:left;width:0px;height:0px;border:5px solid transparent;border-left-color:#999;margin:7px 3px 0 0;}
 #post p{margin:15px 0;line-height:24px;}
 a{color:#1DC4FF;text-decoration:none;}
@@ -25,7 +25,8 @@ pre code{border:0;padding:0;}
 .highlight code{border:0 none;padding:0;background:none;}
 #disqus_thread{margin:30px 10px;}
 .sub-title{padding:0 10px;color:#ccc;font-style:italic;}
-.links{max-width:1280px;margin:0px auto;padding:10px;position:relative;border-bottom:1px solid #efefef;}
+.links-wraper{max-width:1280px;margin:0px auto;padding:10px;position:relative;border-bottom:1px solid #efefef;}
+.links{min-width:600px;margin:0;padding:0;}
 .links li{display:inline-block;margin-right:20px;padding-left:10px;}
 #post img{max-width:100%;}
 #post-meta{padding:10px;border-top:1px solid #efefef;border-bottom:1px solid #efefef;}
