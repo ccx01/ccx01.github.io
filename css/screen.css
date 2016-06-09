@@ -12,7 +12,7 @@ h2{font-size:14px;}
 a{color:#1DC4FF;text-decoration:none;}
 a:hover{text-decoration:underline;}
 .index{margin:20px 10px;line-height:30px;}
-.index li{margin:0;color:#808080;list-style:none;border-bottom:1px solid #efefef;}
+.index li{margin:0;color:#808080;list-style:none;border-top:1px solid #efefef;}
 .index .date{color:#808080;margin-right:5px;}
 .post{margin:10px 10px 40px;}
 #site{max-width:1280px;margin:0 auto;position:relative;}
