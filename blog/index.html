@@ -2,52 +2,51 @@
 layout: default
 title: 文章列表
 ---
-<div id="post-content">
-    {% if paginator.posts %}
-    <ul class="index">
-        {% for post in paginator.posts %}
-            <li class="post">
-                <div class="post-header">
-                    <h3 class="post-title">
-                        <a href="{{ post.url }}">{{ post.title }}</a>
-                        <small> - <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y. %m. %d' }}</time></small>
-                    </h3>
-                </div>
-                <div class="post-description">
-                    <p>{{ post.excerpt }}</p>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% if paginator.total_pages > 1 %}
-        <div class="text-center">
-            <ul class="pagination">
-                {% if paginator.previous_page %}
-                    {% if paginator.previous_page == 1 %}
-                        <li><a href="/blog">&laquo;</a></li>
-                    {% else %}
-                        <li><a href="{{ paginator.previous_page_path }}">&laquo;</a></li>
-                    {% endif %}
+<h1>沙因Sign</h1>
+<p class="sub-title">当时赤脚的我们坐在路边嘲笑那些匆忙赶路的大人</p>
+{% if paginator.posts %}
+<ul class="index">
+    {% for post in paginator.posts %}
+        <li class="post">
+            <div class="post-header">
+                <h3 class="post-title">
+                    <a href="{{ post.url }}">{{ post.title }}</a>
+                    <small> - <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y. %m. %d' }}</time></small>
+                </h3>
+            </div>
+            <div class="post-description">
+                <p>{{ post.excerpt }}</p>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if paginator.total_pages > 1 %}
+    <div class="text-center">
+        <ul class="pagination">
+            {% if paginator.previous_page %}
+                {% if paginator.previous_page == 1 %}
+                    <li><a href="/blog">&laquo;</a></li>
                 {% else %}
-                    <li class="disabled"><span>&laquo;</span></li>
+                    <li><a href="{{ paginator.previous_page_path }}">&laquo;</a></li>
                 {% endif %}
-                {% for page in (1..paginator.total_pages) %}
-                    {% if page == paginator.page %}
-                        <li class="active"><span>{{ page }}</span></li>
-                    {% elsif page == 1 %}
-                        <li><a href="/blog">1</a></li>
-                    {% else %}
-                        <li><a href="{{ site.paginate_path | replace: ':num', page }}">{{ page }}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if paginator.next_page %}
-                    <li><a href="{{ paginator.next_page_path }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for page in (1..paginator.total_pages) %}
+                {% if page == paginator.page %}
+                    <li class="active"><span>{{ page }}</span></li>
+                {% elsif page == 1 %}
+                    <li><a href="/blog">1</a></li>
                 {% else %}
-                    <li class="disabled"><a href="#">&raquo;</a></li>
+                    <li><a href="{{ site.paginate_path | replace: ':num', page }}">{{ page }}</a></li>
                 {% endif %}
-            </ul>
-        </div>
-    {% endif %}
-</div>
-
+            {% endfor %}
+            {% if paginator.next_page %}
+                <li><a href="{{ paginator.next_page_path }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><a href="#">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
