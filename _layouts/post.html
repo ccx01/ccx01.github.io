@@ -3,10 +3,12 @@ layout: default
 ---
 {% assign post = page %}
 
-<h1>{{ post.title }}</h1>
+<h1 id="post-title">{{ post.title }}</h1>
 
 <div id="post">
+    <p id="post-date">{{ post.date | date: '%Y. %m. %d' }}</p>
     {{ content }}
+    
 </div>
 
 {% if post.tags.size > 0 %}

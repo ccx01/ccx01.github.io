@@ -4,16 +4,21 @@ title: 文章列表
 ---
 <div id="post-content">
     {% if paginator.posts %}
+    <ul class="index">
         {% for post in paginator.posts %}
-            <section class="post">
-                <header class="post-header">
+            <li class="post">
+                <div class="post-header">
                     <h3 class="post-title">
                         <a href="{{ post.url }}">{{ post.title }}</a>
-                        <small> - <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b. %d, %Y' }}</time></small>
+                        <small> - <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y. %m. %d' }}</time></small>
                     </h3>
-                </header>
-            </section>
+                </div>
+                <div class="post-description">
+                    <p>{{ post.excerpt }}</p>
+                </div>
+            </li>
         {% endfor %}
+    </ul>
     {% endif %}
     {% if paginator.total_pages > 1 %}
         <div class="text-center">

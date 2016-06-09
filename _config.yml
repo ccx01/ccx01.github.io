@@ -3,5 +3,5 @@ highlighter: rouge
 pygments: true
 permalink: /post/:title
 
-paginate: 10
+paginate: 20
 paginate_path: '/blog/:num'
