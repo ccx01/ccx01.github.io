@@ -173,9 +173,8 @@
 
 	function stop(m) {
 		window.caf(loop_id);
-		var dt = Math.round((new Date().getTime() - time) * 0.001);
 		$start.style.display = "block";
-		$msg.innerHTML = m + "<br><br>你坚持了<b>" + dt + "</b>秒<br><br>制造了<b>" + data.red + "</b>个黑球<br><br>击中小球<b>" + data.hit + "</b>次<br><br>最高保持同时存在<b>" + data.pcu + "</b>个小球。";
+		$msg.innerHTML = m + "<br><br>你制造了<b>" + data.red + "</b>个黑球<br><br>击中小球<b>" + data.hit + "</b>次<br><br>最高保持同时存在<b>" + data.pcu + "</b>个小球。";
 		document.title = "我制造了" + data.red + "个黑色小球，你也来试试吧";
 	}
 	
