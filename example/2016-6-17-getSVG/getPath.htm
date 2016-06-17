@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="gbk">
+    <meta name="robots" content="all">
+    <meta name="author" content="Tencent-TGideas">
+    <meta name="Copyright" content="Tencent">
+    <meta name="applicable-device" content="mobile">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>SVG标签path提取</title>
+    <style type="text/css">
+        textarea{display:block;width:100%;height:200px;margin:10px 0;}
+        #path{display:none;}
+    </style>
+</head>
+<body>
+    <textarea id="ai"></textarea>
+    <button id="on">translate</button>
+    <textarea id="path"></textarea>
+    <div class="svg"></div>
+    <script>
+    var $svg = document.querySelector(".svg");
+    var $path = document.querySelector("#path");
+        function getPath(ai) {
+            $svg.innerHTML = ai;
+            var $svg_node = $svg.querySelector("svg");
+            var svg_attr = $svg_node.attributes;
+            var new_attr = {}
+            for (var k in svg_attr) {
+                new_attr[svg_attr[k].name] = svg_attr[k].nodeValue;
+            };
+
+            var nodes = $svg.querySelectorAll("path");
+
+            var fragment = document.createDocumentFragment();
+            if(nodes.length) {
+                for(var i = 0; i < nodes.length; i++) {
+                    fragment.appendChild(nodes[i].cloneNode(true));
+                }
+            } else {
+                fragment.appendChild(nodes.cloneNode(true));
+            }
+
+            var svgElem = document.createElementNS (new_attr['xmlns'], "svg");   
+
+            svgElem.setAttributeNS (null, "viewBox", new_attr['viewBox']);            
+            svgElem.setAttributeNS (null, "x", new_attr['x']);            
+            svgElem.setAttributeNS (null, "y", new_attr['y']);         
+            svgElem.setAttributeNS (null, "width", new_attr['width']);            
+            svgElem.setAttributeNS (null, "height", new_attr['height']); 
+            svgElem.appendChild(fragment);
+
+            $svg.innerHTML = "";
+            $svg.appendChild(svgElem);
+
+
+            return $svg.innerHTML;
+        }
+        document.querySelector("#on").onclick = function() {
+            var ai = document.querySelector("#ai").value;
+            $path.value = getPath(ai);
+            $path.style['display'] = "block";
+        }
+    </script>
+</body>
+</html>
