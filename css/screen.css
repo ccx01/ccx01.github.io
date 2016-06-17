@@ -34,3 +34,5 @@ pre code{border:0;padding:0;}
 #post-content{margin-top:40px;}
 .pagination li{float:left;list-style:none;padding:10px;}
 .demo{width:100%;text-align:center;display:block;padding:10px 0;background-color:#efefef;}
+blockquote{color:#878787;border-left:2px solid #878787;margin:0;padding-left:40px;}
+small{color:#878787;}
