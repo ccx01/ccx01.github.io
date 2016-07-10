@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="robots" content="all">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="mobile-agent" content="format=html5;url=http://ccx01.com">
+	<meta name="applicable-device" content="mobile">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name ="keywords" content="Sign,ccx01,sign,the day of sign,signXday,沙因,游戏">
+	<meta name="description" content="打击停顿">
+	<title>停顿</title>
+	<style>
+		body{margin:0;padding:0;}
+		.ball{
+			position: absolute;
+			width: 40px;
+			height:40px;
+			border-radius: 50%;
+		    -webkit-appearance: none;
+		    outline: none;
+		    transition:0.3s linear;
+		}
+		.b1{
+			top: 150px;
+			left: 100px;
+			background: rgba(15, 243, 73, 0.5);
+		}
+		.b2{
+			top: 150px;
+			left: 440px;
+			background: rgba(255, 28, 0, 0.5);
+		}
+
+		.b3{
+			top: 300px;
+			left: 100px;
+			background: rgba(15, 243, 73, 0.5);
+		}
+		.b4{
+			top: 300px;
+			left: 440px;
+			background: rgba(255, 28, 0, 0.5);
+		}
+		p{
+			position: absolute;
+			left: 100px;
+		}
+	</style>
+</head>
+<body>
+<div id="main">
+	<p>点击任意位置运行</p>
+	<p style="top:80px;">无停顿</p>
+
+	<input type="radio" class="ball b1">
+	<input type="radio" class="ball b2">
+
+	<p style="top:230px;">停顿</p>
+
+	<input type="radio" class="ball b3">
+	<input type="radio" class="ball b4">
+</div>
+</body>
+</html>
+<script>
+	window.raf = (function() {
+		return window.requestAnimationFrame || function(callback) {
+			return setTimeout(callback, 1000 / 60); // shoot for 60 fps
+		};
+	}());
+
+	window.caf = (function() {
+		return window.cancelAnimationFrame || function(id) {
+			clearTimeout(id);
+		};
+	}());
+
+	function loop(now) {
+		loop_id = raf(loop);
+	}
+
+	var loop_id = raf(loop);
+
+
+	document.onclick = function() {
+		document.querySelector(".b1").style.left = "400px";
+		document.querySelector(".b3").style.left = "400px";
+
+		setTimeout(function(){
+			document.querySelector(".b2").style.left = "640px";
+		},300)
+
+		setTimeout(function(){
+			document.querySelector(".b4").style.left = "640px";
+		},350)
+			
+		
+	}
+
+
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?aafe76c087b2cf3bfa84fa7bae9f43c8";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
