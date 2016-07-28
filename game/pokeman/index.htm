@@ -227,16 +227,12 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         // 回合,判断胜负及一些特殊情况
         if(enemy.hp <= 0) {
             msg(enemy.name + "被打倒了！", function() {
-                setTimout(function(){
-                    msg("恭喜你通关了，故事就是这样");
-                }, 1000);
+                msg("恭喜你通关了，故事就是这样");
             });
             return;
         }else if(me.hp <= 0) {
             msg("你输了！", function() {
-                setTimout(function(){
-                    msg("能输也挺不容易的");
-                }, 1000);
+                msg("能输也挺不容易的");
             });
             return;
         }
