@@ -28,8 +28,8 @@ a{text-decoration:none;}
 a:focus{outline:none}
 
 /*page*/
-body{font-size:1rem;overflow:hidden;}
-.stage{width:100%;height:100%;max-width:640px;margin:0 auto;position:relative;overflow:hidden;}
+body{font-size:1rem;}
+.stage{width:100%;height:100%;max-width:640px;margin:0 auto;position:relative;}
 .dr{margin:100px auto;width:300px;height:400px;background:url(img/dr.jpg) no-repeat;background-size:100%;}
 .dialog{position:fixed;bottom:0;left:0;width:640px;height:100px;background:#000;border-radius:5px;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:1.5em;z-index:999;}
 .dialog:before{content:"";width:630px;height:90px;bottom:4px;left:4px;border-radius:5px;border:1px solid #fff;background:#000;position:absolute;z-index:-1;}
@@ -84,6 +84,56 @@ body{font-size:1rem;overflow:hidden;}
 #debug{display:none;position:absolute;top:0;left:0;width:100%;z-index:99;background-color:rgba(0,0,0,0.5);height:50px;color:#fff;}
 .start{display:none;background:rgba(0,0,0,0.8);position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;}
 .btn{width:400px;text-align:center;margin:40% auto;display:block;border:1px solid;color:#000;font-size:30px;line-height:50px;background-color:rgba(255,255,255,0.8);}
+
+.pm_list {
+    font-size: 30px;
+    line-height: 45px;
+}
+.pm_list li {
+    padding: 30px;
+    border-bottom: 1px solid #333;
+    overflow: hidden;
+}
+.pm_list_img {
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+.pm_list_img img{
+    height: 100%;
+}
+.pm_detail {
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    font-size: 30px;    line-height: 1.5em;
+    padding: 20px;
+    width: 100%;
+    color: #fff;
+    background-color: rgba(0,0,0,0.8);
+    overflow: hidden;
+    box-sizing:border-box;
+}
+.pm_detail_img {
+    float: left;
+    width: 190px;
+    margin-right: 20px;
+}
+.pm_detail_img img{
+        margin: 0 auto;
+    height: 190px;
+}
+.pm_detail_info {
+    float: left;
+        width: 350px;
+}
+.leader,.feed,.close {
+    border: 1px solid;
+    margin: 20px 0;
+    text-align: center;
+    background-color: rgba(255,255,255,0.1);
+}
 </style>
 </head>
 <body>
@@ -93,24 +143,40 @@ body{font-size:1rem;overflow:hidden;}
         <span class="num"></span>
     </div>
     <div class="stage">
-        <div class="secene s1">
-            <div class="dr"></div>
-            <div class="ball b1"></div>
-            <div class="ball b2"></div>
-            <div class="ball b3"></div>
-            <div class="show_man">
-                <div class="data">
-                    <div><img src="img/p1.png"></div>
-                    <div class="info">
-                        <p>体力：20</p>
-                        <p>武力：2</p>
-                        <p>智力：2</p>
-                    </div>
+        <!-- 已有精灵列表 -->
+        <ul class="pm_list">
+            <li data-pm="1">
+                <div class="pm_list_img"><img src="img/p1.png"></div>
+                <div class="pm_list_info">
+                    <p>阿biang哥 (lv1)</p>
+                    <p>体力：20/20</p>
                 </div>
+            </li>
+        </ul>
+
+        <!-- 精灵详情 -->
+        <div class="pm_detail" data-pm="1">
+            <div class="pm_detail_img">
+                <img src="img/p1.png">
+                <div class="leader">出战</div>
+                <div class="feed">喂食</div>
+                <div class="close">关闭</div>
+            </div>
+            <div class="pm_detail_info">
+                <p>阿biang哥</p>
+                <p>等级：1</p>
+                <p>体力：20/20</p>
+                <p>武力：2</p>
+                <p>智力：2</p>
+                <p>技能：
+                    <br>大文字——造成2点伤害
+                    <br>嚎叫——有一定概率使对方感到害pia，跳过一个回合
+                </p>
             </div>
         </div>
+
         <div class="dialog">
-            <span>hi,我是大木博士<br>选一个喜欢的精灵吧</span>
+            <span></span>
             <i class="cur"></i>
         </div>
         <div class="confirm">
@@ -145,9 +211,6 @@ body{font-size:1rem;overflow:hidden;}
             </div>
         </div>
     </div>
-    <div class="start">
-        <a href="main.htm" class="btn">完成教程<br>点击进入正式游戏</a>
-    </div>
 <script type="text/javascript" src="js/zepto.min.js"></script>
 <script src="js/gyro.js"></script>
 <script>
@@ -156,46 +219,22 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
 (function(){
 
+    $(".pm_list li").tap(function(){
+        console.log($(this).data("pm"));
+        $(".pm_detail").show();
+    });
+    $(".close").tap(function(){
+        $(".pm_detail").hide();
+    });
+
     // 这页为引导教程
 
     // 选择精灵
     var $dia = $(".dialog");
     var $dia_txt = $(".dialog span");
     var $confirm = $(".confirm");
-    $(".ball").tap(function(){
-        $(".show_man").show();
-        $dia.hide();
-        setTimeout(function(){
-            $dia.show();
-            msg("你要选择【阿biang哥】吗？");
-            $confirm.show();
-        }, 1000);
-    });
-    $(".yes").tap(function(){
-        $confirm.hide();
-        $(".data").show();
-        msg("恭喜你获得了【阿biang哥】！");
-        $(".show_man").tap(function(){
-            $(".show_man").hide();
-            $(".ball").hide();
-            /*msg("接下来我来教你如何进行战斗<br>首先摇一摇手机", function() {
-                Gyro.init({
-                    callback: function(coor, acceleration, msg, mc) {
-                        if(msg.length > 10) {
-                            battle();
-                            Gyro.disconnect();
-                        }
-                    }
-                });
-            });*/
-            battle();
-        });
-    });
-    $(".no").tap(function(){
-        $(".show_man").hide();
-        $confirm.hide();
-        msg("选一个喜欢的精灵吧");
-    });
+    
+    // battle();
 
     // 出现精灵
     var me = {
