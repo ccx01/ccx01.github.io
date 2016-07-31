@@ -277,8 +277,31 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             img: "img/p2.png",
             atk: 3,
             hp: 18,
-            full_hp: 18,
-            skill: ['reatk']
+            full_hp: 18
+        },
+        "p3": {
+            id: "p3",
+            name: "帅哥",
+            img: "img/p3.png",
+            atk: 6,
+            hp: 13,
+            full_hp: 13
+        },
+        "p4": {
+            id: "p4",
+            name: "胡子",
+            img: "img/p4.png",
+            atk: 1,
+            hp: 33,
+            full_hp: 33
+        },
+        "p5": {
+            id: "p5",
+            name: "血男",
+            img: "img/p5.png",
+            atk: 10,
+            hp: 10,
+            full_hp: 10
         }
     }
 
@@ -296,7 +319,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
     // me:出战的精灵
     var me = clone(pokemon_pool["p1"]);
-    var enemy = clone(pokemon_pool["p2"]);
+    var enemy = clone(pokemon_pool["p1"]);
     // 我的持有灵
     var me_pool = [me];
     console.log(me_pool)
@@ -349,6 +372,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             }
         }
     });
+    // battle();
     // 数据存储
     localStorage.me = JSON.stringify(me);
 
@@ -356,6 +380,9 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
 
     function battle() {
+        var p = new Date().getTime() % 5 + 1;
+        enemy = clone(pokemon_pool["p" + p]);
+        
         initInfo();
         $(".battle").show();
         msg("pokemon出现了", cmd);
