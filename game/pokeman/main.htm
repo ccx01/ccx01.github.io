@@ -33,10 +33,12 @@ body{font-size:1rem;}
 .dr{margin:100px auto;width:300px;height:400px;background:url(img/dr.jpg) no-repeat;background-size:100%;}
 .dialog{position:fixed;bottom:0;left:0;width:640px;height:100px;background:#000;border-radius:5px;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:1.5em;z-index:999;}
 .dialog:before{content:"";width:630px;height:90px;bottom:4px;left:4px;border-radius:5px;border:1px solid #fff;background:#000;position:absolute;z-index:-1;}
-.confirm,.cmd{display:none;position:fixed;background:#000;border-radius:5px;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:2em;z-index:999;bottom:110px;right:10px;}
+.confirm,.cmd{display:none;position:fixed;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:2em;z-index:999;bottom:110px;right:10px;}
 .confirm a,.cmd a{display:block;color:#fff;}
-.cmd{width:300px;}
-.cmd a{width:120px;float:left;}
+.cmd{    width: 50%;}
+.cmd a{width:120px;float:left;    border-radius: 5px;
+    margin: 5px;
+    text-align: center;    background-color: #000;}
 .cur{display:block;width:0px;height:0px;border:10px solid rgba(0,0,0,0);border-top:10px solid #fff;position:absolute;right:15px;bottom:5px;-webkit-animation:bounce 0.8s infinite;animation:bounce 0.8s infinite;}
 @-webkit-keyframes bounce{
     from{-webkit-transform:translateY(0px);}
@@ -63,12 +65,12 @@ body{font-size:1rem;}
     to,25%,75%{background:rgba(0,0,0,0.8);}
 }
 .show_man{background-image:url(img/p1.png);background-size:200px;background-repeat:no-repeat;background-position:235px 300px;}
-.flash1{-webkit-animation:flash1 0.6s 1;animation:flash1 0.6s 1;}
-@-webkit-keyframes flash1{
+.wound{-webkit-animation:wound 0.6s 1;animation:wound 0.6s 1;}
+@-webkit-keyframes wound{
     from,50%{opacity:1;}
     to,25%,75%{opacity:0.3;}
 }
-@keyframes flash1{
+@keyframes wound{
     from,50%{opacity:1;}
     to,25%,75%{opacity:0.3;}
 }
@@ -134,6 +136,7 @@ body{font-size:1rem;}
     text-align: center;
     background-color: rgba(255,255,255,0.1);
 }
+.tpl{display: none;}
 </style>
 </head>
 <body>
@@ -169,14 +172,13 @@ body{font-size:1rem;}
                 <p>武力：2</p>
                 <p>智力：2</p>
                 <p>技能：
-                    <br>大文字——造成2点伤害
                     <br>嚎叫——有一定概率使对方感到害pia，跳过一个回合
                 </p>
             </div>
         </div>
 
         <div class="dialog">
-            <span></span>
+            <span>摇一摇会找到其他小精灵</span>
             <i class="cur"></i>
         </div>
         <div class="confirm">
@@ -211,6 +213,16 @@ body{font-size:1rem;}
             </div>
         </div>
     </div>
+
+    <template id="pm_list_tpl" class="tpl">
+        <li data-pm="{#id}">
+            <div class="pm_list_img"><img src="{#img}"></div>
+            <div class="pm_list_info">
+                <p>{#name} (lv1)</p>
+                <p>体力：{#hp}/{#full_hp}</p>
+            </div>
+        </li>
+    </template>
 <script type="text/javascript" src="js/zepto.min.js"></script>
 <script src="js/gyro.js"></script>
 <script>
@@ -219,40 +231,174 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
 (function(){
 
-    $(".pm_list li").tap(function(){
-        console.log($(this).data("pm"));
-        $(".pm_detail").show();
+    // 功能函数
+    function getHtml(tpl, data) {
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+            html += tplEngine(tpl, data[i]);
+        }
+        return html;
+    }
+    function tplEngine(tpl, data) {
+        var re = /{#(\w+)?}/;
+        while (match = re.exec(tpl)) {
+            tpl = tpl.replace(match[0], data[match[1]]);
+        }
+        return tpl;
+    }
+
+    function clone(obj){
+        function Clone(){}
+        Clone.prototype = obj;
+        var o = new Clone();
+        for(var a in o){
+            if(typeof o[a] == "object") {
+                o[a] = clone(o[a]);
+            }
+        }
+        return o;
+    }
+
+
+    // 精灵池
+    var pokemon_pool = {
+        "p1": {
+            id: "p1",
+            name: "阿biang哥",
+            img: "img/p1.png",
+            atk: 5,
+            hp: 20,
+            full_hp: 20,
+            skill: ['pia']
+        },
+        "p2": {
+            id: "p2",
+            name: "白猴子",
+            img: "img/p2.png",
+            atk: 3,
+            hp: 18,
+            full_hp: 18,
+            skill: ['reatk']
+        }
+    }
+
+    // 技能池
+    var skill_pool = {
+        pia: {
+            name: "嚎叫",
+            brief: "使对方感到害pia，无法动弹"
+        },
+        reatk: {
+            name: "防御反击",
+            brief: "反弹对方下一回合的伤害"
+        }
+    }
+
+    // me:出战的精灵
+    var me = clone(pokemon_pool["p1"]);
+    var enemy = clone(pokemon_pool["p2"]);
+    // 我的持有灵
+    var me_pool = [me];
+    console.log(me_pool)
+
+
+    var $dia = $(".dialog");
+    var $dia_txt = $(".dialog span");
+    var $confirm = $(".confirm");
+
+
+    // 列表选项
+    $(".pm_list").on("tap", "li", function(){
+        showPM($(this).data("pm"));
     });
     $(".close").tap(function(){
         $(".pm_detail").hide();
     });
+    $(".feed").tap(function(){
+        $(".pm_detail").hide();
+    });
 
-    // 这页为引导教程
+    function showPM(pid) {
+        if(me.id == pid) {
+            $(".leader").hide();
+        }else {
+            $(".leader").show();
+        }
 
-    // 选择精灵
-    var $dia = $(".dialog");
-    var $dia_txt = $(".dialog span");
-    var $confirm = $(".confirm");
-    
-    // battle();
+        $(".pm_detail").data("pm", pokemon_pool[pid]["id"]);
+        $(".pm_detail img").attr({
+            src: pokemon_pool[pid]["img"]
+        });
+        var pm_detail_info = '<p>' + pokemon_pool[pid]["name"] + '</p>';
+            pm_detail_info += '<p>体力：' + pokemon_pool[pid]["hp"] + '/' + pokemon_pool[pid]["full_hp"] + '</p>';
+            pm_detail_info += '<p>武力：' + pokemon_pool[pid]["atk"] + '</p>';
+            for (var i = pokemon_pool[pid]["skill"].length - 1; i >= 0; i--) {
+                pm_detail_info += '<p>技能：<br>' + pokemon_pool[pid]["skill"] + '——' + skill_pool[pokemon_pool[pid]["skill"][i]]['brief'] + '</p>';
+            };
+        $(".pm_detail_info").html(pm_detail_info);
 
-    // 出现精灵
-    var me = {
-        name: "阿biang哥",
-        atk: 2,
-        hp: 20,
-        full_hp: 20
+        $(".pm_detail").show();
     }
-    var enemy = {
-        name: "pokemon",
-        atk: 3,
-        hp: 8,
-        full_hp: 8
-    }
+
+
+    Gyro.init({
+        callback: function(coor, acceleration, msg, mc) {
+            if(msg.length > 10) {
+                battle();
+                Gyro.disconnect();
+            }
+        }
+    });
+    // 数据存储
+    localStorage.me = JSON.stringify(me);
+
+    var a = JSON.parse(localStorage.me);
+
 
     function battle() {
+        initInfo();
         $(".battle").show();
         msg("pokemon出现了", cmd);
+    }
+
+    function battleEnd() {
+        $(".battle").hide();
+        $(".cmd").hide();
+        refreshList();
+        Gyro.connect();
+    }
+
+    refreshList();
+
+    // 刷新列表
+    function refreshList() {
+        $(".pm_list").html(getHtml($('#pm_list_tpl').html(), me_pool));
+    }
+
+    function initInfo() {
+        $(".enemy_hp div").css({
+            "width": 100 + "%"
+        });
+        $(".enemy_img").attr({
+            "src": enemy.img
+        });
+        $(".enemy_name").html(enemy.name);
+
+
+        $(".me_hp div").css({
+            "width": 100 + "%"
+        });
+        $(".me_img").attr({
+            "src": me.img
+        });
+        $(".me_name").html(me.name);
+        var skill_cmd = '<a data-cmd="atk">攻击</a>';
+        for (var i in me.skill) {
+            skill_cmd += '<a data-cmd="' + me.skill[i] + '">' + skill_pool[me.skill[i]]['name'] + '</a>';
+        };
+        skill_cmd += '<a data-cmd="capture">捕捉</a>';
+        skill_cmd += '<a data-cmd="run">逃跑</a>';
+        $(".cmd").html(skill_cmd);
     }
 
 
@@ -275,18 +421,12 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     function round() {
         // 回合,判断胜负及一些特殊情况
         if(enemy.hp <= 0) {
-            msg(enemy.name + "被打倒了！", function() {
-                msg("恭喜你通关了，你拯救了世界，少年，故事就是这样", function() {
-                    $(".start").show();
-                });
-            });
+            msg(enemy.name + "被打倒了！", battleEnd);
             return;
         }else if(enemy.hp / enemy.full_hp < 0.5){
             // msg(enemy.name + "处于虚弱状态，点击它进行捕捉");
         }else if(me.hp <= 0) {
-            msg("你输了！", function() {
-                msg("能输也挺不容易的，你没有拯救世界，少年");
-            });
+            msg("你输了！", battleEnd);
             return;
         }
 
@@ -300,25 +440,15 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         }
     }
 
-    $(".enemy").tap(capture);
-    function capture() {
-        $(".cmd").hide();
-        $(".capture").addClass('ac');
-        setTimeout(function(){
-            $(".capture").removeClass('ac');
-            if(Math.random() * 0.5 > enemy.hp / enemy.full_hp) {
-                msg("恭喜你捕获了" + enemy.name, function() {
-                    $(".start").show();
-                });
-            }else {
-                msg("很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高                 ", round);
-                cur_round = "enemy";
-            }
-        }, 1000);
-    }
 
 
     function ai() {
+
+        if(enemy.status == "haipia") {
+            cur_round = "me";
+            round();
+            return;
+        }
         // ai行动
         msg(enemy.name + "进行攻击!");
         var ski = Math.random() * 3 | 0;
@@ -355,24 +485,62 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     // 我方技能
     $(".cmd a").tap(function(){
         switch($(this).data("cmd")) {
+            case "capture":
+                $(".capture").addClass('ac');
+                setTimeout(function(){
+                    $(".capture").removeClass('ac');
+                    if(Math.random() * 0.5 > enemy.hp / enemy.full_hp) {
+                        msg("恭喜你捕获了" + enemy.name, battleEnd);
+                        me_pool.push(clone(pokemon_pool[enemy.id]));
+                        return;
+                    }else {
+                        msg("很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高                 ", round);
+
+                        $(".cmd").hide();
+                        cur_round = "enemy";
+                        refreshInfo("enemy", round);
+                    }
+                }, 1000);
+            break;
             case "atk":
                 enemy.hp -= me.atk;
                 enemy.hp = Math.max(0, enemy.hp);
                 enemy.status = "wound";
                 msg(enemy.name + "受到" + me.atk + "点伤害！");
+
+                $(".cmd").hide();
+                cur_round = "enemy";
+                refreshInfo("enemy", round);
             break;
-            case "ski":
-                enemy.status = "none";
-                msg("阿biang哥发出嚎叫！" + enemy.name + "受到惊吓，感到害pia");
+            case "pia":
+                msg(me.name + "发出嚎叫！", function() {
+                    if(Math.random() > 0.7) {
+                        enemy.status = "haipia";
+                        msg(enemy.name + "受到惊吓，感到害pia");
+                    } else {
+                        msg("什么事都没发生");
+                    }
+                });
+
+                $(".cmd").hide();
+                cur_round = "enemy";
+                refreshInfo("enemy", round);
             break;
             case "run":
-                enemy.status = "none";
-                msg("阿biang哥企图逃跑！");
+                if(Math.random() > 0.6) {
+                    msg(me.name + "企图逃跑！未遂！");
+                } else {
+
+                    msg(me.name + "逃跑了！");
+                    battleEnd();
+                    return;
+                }
+
+                $(".cmd").hide();
+                cur_round = "enemy";
+                refreshInfo("enemy", round);
             break;
         }
-        $(".cmd").hide();
-        cur_round = "enemy";
-        refreshInfo("enemy", round);
     });
 
     function refreshInfo(obj, cb) {
@@ -380,25 +548,25 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         switch(obj) {
             case "enemy":
                 if(enemy.status == "wound") {
-                    $(".enemy_img").addClass('flash1');
+                    $(".enemy_img").addClass('wound');
                 }
                 $(".enemy_hp div").css({
                     "width": enemy.hp / enemy.full_hp * 100 + "%"
                 });
                 setTimeout(function(){
-                    $(".enemy_img").removeClass('flash1');
+                    $(".enemy_img").removeClass('wound');
                     cb();
                 }, 1500);
             break;
             case "me":
                 if(me.status == "wound") {
-                    $(".me_img").addClass('flash1');
+                    $(".me_img").addClass('wound');
                 }
                 $(".me_hp div").css({
                     "width": me.hp / me.full_hp * 100 + "%"
                 });
                 setTimeout(function(){
-                    $(".me_img").removeClass('flash1');
+                    $(".me_img").removeClass('wound');
                     cb();
                 }, 1500);
             break;
@@ -410,7 +578,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 </script>
 
 <script>
-    /*var _hmt = _hmt || [];
+    var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
       hm.src = "//hm.baidu.com/hm.js?c733f37c8529d1373d90a23e09e724b4";
@@ -424,7 +592,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-74514423-1', 'auto');
-    ga('send', 'pageview');*/
+    ga('send', 'pageview');
 </script>
 </body>
 </html>
