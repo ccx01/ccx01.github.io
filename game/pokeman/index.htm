@@ -180,8 +180,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             $(".ball").hide();
             msg("接下来我来教你如何进行战斗<br>首先摇一摇手机", function() {
                 Gyro.init({
-                    callback: function(coor, acceleration, msg, mc) {
-                        if(msg.length > 10) {
+                    callback: function(coor, acceleration, ges, mc) {
+                        if(ges == "shake") {
                             battle();
                             Gyro.disconnect();
                         }

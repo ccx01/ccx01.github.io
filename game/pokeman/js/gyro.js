@@ -54,10 +54,11 @@
 
 	//设置参数
 	var config;
-	var sens = 300;	//动作判定间隔时间
+	var sens = 1000;	//动作判定间隔时间
 
 	//反馈信息
 	var msg = "无动作";
+	var ges = "无手势";
 
 	Gyro.init = function(cfg) {
 		// 初始化参数
@@ -99,6 +100,8 @@
 	}
 
 	Gyro.disconnect = function() {
+		msg = "";
+		ges = "";
 		window.removeEventListener('deviceorientation', deviceorientation);
 		window.removeEventListener('devicemotion', devicemotion);
 	}
@@ -122,7 +125,7 @@
 		config.target && response[config.mode](Gyro.target);
 
 		//用户自定义函数
-		config.callback && config.callback(coor, gravity, msg, motion_callback);
+		config.callback && config.callback(coor, gravity, ges, motion_callback);
 	}
 
 	var last_gravity = {};
@@ -152,17 +155,18 @@
 			}
 
 			// msg = Math.round(offset.x) + " " + Math.round(offset.y) + " " + Math.round(offset.z) + "<br>" + Math.round(offset.a) + " " + Math.round(offset.b) + " " + Math.round(offset.g);
-
-			msg = "<br>动作: "
+			msg = "";
 
 			// a面
 			switch(true) {
 				case offset.a > 10:
-					msg += "左移";
+					// msg += "左移";
+					msg += "a1";
 					motion_callback.a = 1;
 				break;
 				case offset.a < -10:
-					msg += "右移";
+					// msg += "右移";
+					msg += "a2";
 					motion_callback.a = 2;
 				break;
 				default:
@@ -172,11 +176,13 @@
 			// b面
 			switch(true) {
 				case offset.b > 10:
-					msg += "抬起";
+					// msg += "抬起";
+					msg += "b1";
 					motion_callback.b = 1;
 				break;
 				case offset.b < -10:
-					msg += "放下";
+					// msg += "放下";
+					msg += "b2";
 					motion_callback.b = 2;
 				break;
 				default:
@@ -188,11 +194,13 @@
 			switch(true) {
 				// offset.a主要是用来防止平移时出现翻转判定
 				case offset.g < -30 && offset.a > -15 && offset.b > -15:
-					msg += "左翻";
+					// msg += "左翻";
+					msg += "g1";
 					motion_callback.g = 1;
 				break;
 				case offset.g > 30 && offset.a < 15 && offset.b < 15:
-					msg += "右翻";
+					// msg += "右翻";
+					msg += "g2";
 					motion_callback.g = 2;
 				break;
 				default:
@@ -202,11 +210,13 @@
 			// x轴
 			switch(true) {
 				case offset.x < -8:
-					msg += "左甩";
+					// msg += "左甩";
+					msg += "x1";
 					motion_callback.x = 1;
 				break;
 				case offset.x > 8:
-					msg += "右甩";
+					// msg += "右甩";
+					msg += "x2";
 					motion_callback.x = 2;
 				break;
 				default:
@@ -216,11 +226,13 @@
 			// y轴
 			switch(true) {
 				case offset.y > 5:
-					msg += "前甩";
+					// msg += "前甩";
+					msg += "y1";
 					motion_callback.y = 1;
 				break;
 				case offset.y < -5:
-					msg += "后甩";
+					// msg += "后甩";
+					msg += "y2";
 					motion_callback.y = 2;
 				break;
 				default:
@@ -230,15 +242,23 @@
 			// z轴
 			switch(true) {
 				case offset.z > 5:
-					msg += "上甩";
+					// msg += "上甩";
+					msg += "z1";
 					motion_callback.z = 1;
 				break;
 				case offset.z < -5:
-					msg += "下甩";
+					// msg += "下甩";
+					msg += "z2";
 					motion_callback.z = 2;
 				break;
 				default:
 					motion_callback.z = 0;
+			}
+
+			if(/x+.*(y+|z+)+/.test(msg)) {
+				ges = "shake";
+			} else {
+				ges = msg;
 			}
 
 

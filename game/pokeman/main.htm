@@ -378,8 +378,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
 
     Gyro.init({
-        callback: function(coor, acceleration, msg, mc) {
-            if(msg.length > 10) {
+        callback: function(coor, acceleration, ges, mc) {
+            if(ges == "shake") {
                 battle();
                 Gyro.disconnect();
             }
