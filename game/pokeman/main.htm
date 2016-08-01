@@ -215,7 +215,7 @@ body{font-size:1rem;}
     </div>
 
     <template id="pm_list_tpl" class="tpl">
-        <li data-pm="{#id}">
+        <li data-order="{#id}">
             <div class="pm_list_img"><img src="{#img}"></div>
             <div class="pm_list_info">
                 <p>{#name} (lv1)</p>
@@ -235,28 +235,25 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     function getHtml(tpl, data) {
         var html = "";
         for (var i = 0; i < data.length; i++) {
-            html += tplEngine(tpl, data[i]);
+            html += tplEngine(tpl, data[i], i);
         }
         return html;
     }
-    function tplEngine(tpl, data) {
+    function tplEngine(tpl, data, i) {
         var re = /{#(\w+)?}/;
+        var or = /{%(\w+)?}/;
+        var match;
         while (match = re.exec(tpl)) {
             tpl = tpl.replace(match[0], data[match[1]]);
+        }
+        while (match = or.exec(tpl)) {
+            tpl = tpl.replace(match[0], i);
         }
         return tpl;
     }
 
     function clone(obj){
-        function Clone(){}
-        Clone.prototype = obj;
-        var o = new Clone();
-        for(var a in o){
-            if(typeof o[a] == "object") {
-                o[a] = clone(o[a]);
-            }
-        }
-        return o;
+        return JSON.parse(JSON.stringify(obj));
     }
 
 
@@ -277,7 +274,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             img: "img/p2.png",
             atk: 3,
             hp: 18,
-            full_hp: 18
+            full_hp: 18,
+            skill: ['reatk']
         },
         "p3": {
             id: "p3",
@@ -285,7 +283,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             img: "img/p3.png",
             atk: 6,
             hp: 13,
-            full_hp: 13
+            full_hp: 13,
+            skill: ['reatk']
         },
         "p4": {
             id: "p4",
@@ -293,7 +292,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             img: "img/p4.png",
             atk: 1,
             hp: 33,
-            full_hp: 33
+            full_hp: 33,
+            skill: ['reatk']
         },
         "p5": {
             id: "p5",
@@ -301,7 +301,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             img: "img/p5.png",
             atk: 10,
             hp: 10,
-            full_hp: 10
+            full_hp: 10,
+            skill: ['reatk']
         }
     }
 
@@ -322,6 +323,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     var enemy = clone(pokemon_pool["p1"]);
     // 我的持有灵
     var me_pool = [me];
+    window.me_pool = me_pool;
     console.log(me_pool)
 
 
@@ -332,31 +334,42 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
     // 列表选项
     $(".pm_list").on("tap", "li", function(){
-        showPM($(this).data("pm"));
+        showPM($(this).data("order"));
     });
     $(".close").tap(function(){
         $(".pm_detail").hide();
     });
     $(".feed").tap(function(){
-        $(".pm_detail").hide();
+        var or = $(this).parents(".pm_detail").data("order");
+        me_pool[or].hp += 20;
+        me_pool[or].hp = Math.min(me_pool[or].hp, me_pool[or].full_hp);
+        showPM(or);
+        refreshList();
+    });
+    $(".leader").tap(function(){
+        var or = $(this).parents(".pm_detail").data("order");
+        me = me_pool[or];
+        showPM(or);
+        refreshList();
     });
 
-    function showPM(pid) {
-        if(me.id == pid) {
+    function showPM(or) {
+        if(me.id == or) {
             $(".leader").hide();
         }else {
             $(".leader").show();
         }
 
-        $(".pm_detail").data("pm", pokemon_pool[pid]["id"]);
+        $(".pm_detail").data("pm", me_pool[or]["id"]);
+        $(".pm_detail").data("order", or);
         $(".pm_detail img").attr({
-            src: pokemon_pool[pid]["img"]
+            src: me_pool[or]["img"]
         });
-        var pm_detail_info = '<p>' + pokemon_pool[pid]["name"] + '</p>';
-            pm_detail_info += '<p>体力：' + pokemon_pool[pid]["hp"] + '/' + pokemon_pool[pid]["full_hp"] + '</p>';
-            pm_detail_info += '<p>武力：' + pokemon_pool[pid]["atk"] + '</p>';
-            for (var i = pokemon_pool[pid]["skill"].length - 1; i >= 0; i--) {
-                pm_detail_info += '<p>技能：<br>' + pokemon_pool[pid]["skill"] + '——' + skill_pool[pokemon_pool[pid]["skill"][i]]['brief'] + '</p>';
+        var pm_detail_info = '<p>' + me_pool[or]["name"] + '</p>';
+            pm_detail_info += '<p>体力：' + me_pool[or]["hp"] + '/' + me_pool[or]["full_hp"] + '</p>';
+            pm_detail_info += '<p>武力：' + me_pool[or]["atk"] + '</p>';
+            for (var i = me_pool[or]["skill"].length - 1; i >= 0; i--) {
+                pm_detail_info += '<p>技能：<br>' + me_pool[or]["skill"] + '——' + skill_pool[me_pool[or]["skill"][i]]['brief'] + '</p>';
             };
         $(".pm_detail_info").html(pm_detail_info);
 
@@ -372,7 +385,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             }
         }
     });
-    // battle();
+    /*battle();
+    window.battle = battle;*/
     // 数据存储
     localStorage.me = JSON.stringify(me);
 
@@ -399,12 +413,15 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
     // 刷新列表
     function refreshList() {
+        for (var i = me_pool.length - 1; i >= 0; i--) {
+            me_pool[i].id = i;
+        };
         $(".pm_list").html(getHtml($('#pm_list_tpl').html(), me_pool));
     }
 
     function initInfo() {
         $(".enemy_hp div").css({
-            "width": 100 + "%"
+            "width": (enemy.hp / enemy.full_hp * 100) + "%"
         });
         $(".enemy_img").attr({
             "src": enemy.img
@@ -413,7 +430,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
 
         $(".me_hp div").css({
-            "width": 100 + "%"
+            "width": (me.hp / me.full_hp * 100) + "%"
         });
         $(".me_img").attr({
             "src": me.img
@@ -510,10 +527,11 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     }
 
     // 我方技能
-    $(".cmd a").tap(function(){
+    $(".cmd").on('tap', 'a', function(){
         switch($(this).data("cmd")) {
             case "capture":
                 $(".capture").addClass('ac');
+                $(".cmd").hide();
                 setTimeout(function(){
                     $(".capture").removeClass('ac');
                     if(Math.random() * 0.5 > enemy.hp / enemy.full_hp) {
@@ -521,11 +539,10 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
                         me_pool.push(clone(pokemon_pool[enemy.id]));
                         return;
                     }else {
-                        msg("很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高                 ", round);
-
-                        $(".cmd").hide();
-                        cur_round = "enemy";
-                        refreshInfo("enemy", round);
+                        msg("很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高                 ", function() {
+                            cur_round = "enemy";
+                            refreshInfo("enemy", round);
+                        });
                     }
                 }, 1000);
             break;
