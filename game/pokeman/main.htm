@@ -29,7 +29,7 @@ a:focus{outline:none}
 
 /*page*/
 body{font-size:1rem;}
-.stage{width:100%;height:100%;max-width:640px;margin:0 auto;position:relative;}
+.stage{width:100%;height:100%;max-width:640px;padding-bottom:150px;margin:0 auto;position:relative;}
 .dr{margin:100px auto;width:300px;height:400px;background:url(img/dr.jpg) no-repeat;background-size:100%;}
 .dialog{position:fixed;bottom:0;left:0;width:640px;height:100px;background:#000;border-radius:5px;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:1.5em;z-index:999;}
 .dialog:before{content:"";width:630px;height:90px;bottom:4px;left:4px;border-radius:5px;border:1px solid #fff;background:#000;position:absolute;z-index:-1;}
@@ -107,15 +107,17 @@ body{font-size:1rem;}
 .pm_detail {
     display: none;
     position: fixed;
-    top: 100px;
+    top: 0;
     left: 0;
-    font-size: 30px;    line-height: 1.5em;
-    padding: 20px;
+    font-size: 30px;
+    line-height: 1.5em;
+    padding: 100px 20px;
     width: 100%;
+    height: 100%;
     color: #fff;
     background-color: rgba(0,0,0,0.8);
     overflow: hidden;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 .pm_detail_img {
     float: left;
@@ -137,6 +139,12 @@ body{font-size:1rem;}
     background-color: rgba(255,255,255,0.1);
 }
 .tpl{display: none;}
+h2 {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    box-shadow: 0 1px 3px #999;
+}
 </style>
 </head>
 <body>
@@ -147,6 +155,7 @@ body{font-size:1rem;}
     </div>
     <div class="stage">
         <!-- 已有精灵列表 -->
+        <h2>拥有的小精灵</h2>
         <ul class="pm_list">
             <li data-pm="1">
                 <div class="pm_list_img"><img src="img/p1.png"></div>
@@ -275,7 +284,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 3,
             hp: 18,
             full_hp: 18,
-            skill: ['reatk']
+            skill: ['batter']
         },
         "p3": {
             id: "p3",
@@ -290,10 +299,10 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             id: "p4",
             name: "胡子",
             img: "img/p4.png",
-            atk: 1,
+            atk: 2,
             hp: 33,
             full_hp: 33,
-            skill: ['reatk']
+            skill: ['ding']
         },
         "p5": {
             id: "p5",
@@ -302,7 +311,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 10,
             hp: 10,
             full_hp: 10,
-            skill: ['reatk']
+            skill: ['blood']
         }
     }
 
@@ -310,27 +319,202 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     var skill_pool = {
         pia: {
             name: "嚎叫",
-            brief: "使对方感到害pia，无法动弹"
+            brief: "使对方感到害pia，无法动弹",
+            func: function(obj1, obj2) {
+                queue.add(function(){
+                    msg(obj1.name + "发出嚎叫！     ");
+                });
+
+                obj2.status = "haipia";
+                txt = obj2.name + "受到惊吓，感到害pia";
+                cb = function() {
+                    round.cur = obj2.role;
+                    refreshInfo(obj2.role, round);
+                };
+                queue.add(function(){
+                    msg(txt, cb);
+                });
+            }
+        },
+        batter: {
+            name: "连击",
+            brief: "打出3倍伤害，但是下一回合无法行动",
+            func: function(obj1, obj2) {
+                obj1.debuff = "pass";
+
+                var damage = obj1.atk * 3;
+                obj2.hp -= damage;
+                obj2.hp = Math.max(0, obj2.hp);
+                obj2.status = "wound";
+                $(".cmd").hide();
+
+                cb = function() {
+                    round.cur = obj2.role;
+                    refreshInfo(obj2.role, round);
+                };
+                queue.add(function(){
+                    msg(obj1.name + "使用连击     ", cb);
+                });
+                queue.add(function(){
+                    msg(obj2.name + "受到" + damage + "点伤害！");
+                });
+            }
         },
         reatk: {
             name: "防御反击",
-            brief: "反弹对方下一回合的伤害"
+            brief: "反弹对方下一回合的普通攻击",
+            func: function(obj1, obj2) {
+                cb = function() {
+                    obj2.status = "hit_self";
+                    round.cur = obj2.role;
+                    refreshInfo(obj2.role, round);
+                };
+                queue.add(function(){
+                    msg(obj1.name + "进行防御反击    ", cb);
+                });
+            }
+        },
+        blood: {
+            name: "吸血",
+            brief: "攻击减半，但是造成的伤害将回复自身生命值",
+            func: function(obj1, obj2) {
+                var damage = obj1.atk * 0.5 | 0;
+                obj2.hp -= damage;
+                obj2.hp = Math.max(0, obj2.hp);
+                obj2.status = "wound";
+
+                obj1.hp += damage;
+                obj1.hp = Math.min(obj1.hp, obj1.full_hp);
+
+                cb = function() {
+                    refreshInfo(obj1.role);
+                    round.cur = obj2.role;
+                    refreshInfo(obj2.role, round);
+                };
+                queue.add(function(){
+                    msg(obj1.name + "扑了上去    ");
+                });
+                queue.add(function(){
+                    msg(obj2.name + "受到" + damage + "点伤害，" + obj1.name + "恢复" + damage + "点生命值    ", cb);
+                });
+            }
+        },
+        ding: {
+            name: "憋气",
+            brief: "回复20%生命值",
+            func: function(obj1, obj2) {
+                obj1.status = "none";
+                var damage = obj1.full_hp * 0.2 | 0;
+                obj1.hp += damage;
+                obj1.hp = Math.min(obj1.hp, obj1.full_hp);
+                cb = function() {
+                    round.cur = obj2.role;
+                    refreshInfo(obj1.role, round);
+                };
+                queue.add(function(){
+                    msg(obj1.name + "开始憋气    ");
+                });
+                queue.add(function(){
+                    msg(obj1.name + "恢复" + damage + "点生命值", cb);
+                });
+            }
         }
     }
 
     // me:出战的精灵
     var me = clone(pokemon_pool["p1"]);
-    var enemy = clone(pokemon_pool["p1"]);
-    // 我的持有灵
+        me.role = "me";
     var me_pool = [me];
-    window.me_pool = me_pool;
-    console.log(me_pool)
+
+    var enemy = clone(pokemon_pool["p1"]);
+        enemy.role = "enemy";
+
+    if(localStorage.me) {
+        me = JSON.parse(localStorage.me);
+        me_pool = JSON.parse(localStorage.me_pool);
+    }
+
+    // 我的持有灵
+
+    // 数据存储
+    localStorage.me = JSON.stringify(me);
+    localStorage.me_pool = JSON.stringify(me_pool);
 
 
     var $dia = $(".dialog");
     var $dia_txt = $(".dialog span");
     var $confirm = $(".confirm");
 
+    // 核心功能，顺序执行各个函数
+    var queue = (function(){
+        var I = {}
+
+        var q_list = [];
+
+        // 运行
+        function run() {
+            if(typeof(q_list[0]) == "function") {
+                q_list[0]();
+            }
+        }
+
+        // 完成
+        function done() {
+            if(typeof(q_list[0]) == "function") {
+                q_list.shift();
+                run();
+            }
+        }
+
+        // 加入队列
+        function add(func) {
+            if(typeof(func) == "function") {
+                q_list.push(func);
+                run();
+            }
+        }
+
+        function debug() {
+            console.log(q_list);
+        }
+
+        I.add = add;
+        I.run = run;
+        I.done = done;
+        I.debug = debug;
+
+        return I;
+    }());
+
+    // 进程函数（加入队列顺序执行）
+    var msg = (function(){
+        return function(str, cb) {
+            // 文本信息
+            clearTimeout(msg.st);
+            $dia_txt.html("");
+
+            var l = str.length;
+            var i = 0;
+
+            function tp(i) {
+                $dia_txt.html(str.slice(0, i + 1));
+                msg.st = setTimeout(function() {
+                    i++;
+                    if(i <= l) {
+                        tp(i);
+                    } else {
+                        cb && cb();
+                        queue.done();
+                    }
+                }, 50);
+            }
+            tp(i);
+        }
+    }());
+    msg.st = 0;
+
+
+    // 界面函数（界面显示，重力感应，按钮响应）
 
     // 列表选项
     $(".pm_list").on("tap", "li", function(){
@@ -343,16 +527,20 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         var or = $(this).parents(".pm_detail").data("order");
         me_pool[or].hp += 20;
         me_pool[or].hp = Math.min(me_pool[or].hp, me_pool[or].full_hp);
+        msg(me_pool[or].name + "恢复20点生命值");
         showPM(or);
         refreshList();
     });
     $(".leader").tap(function(){
         var or = $(this).parents(".pm_detail").data("order");
         me = me_pool[or];
+        me.role = "me";
+        msg(me.name + "！就决定是你了！");
         showPM(or);
         refreshList();
     });
 
+    // 展示精灵详细信息
     function showPM(or) {
         if(me.id == or) {
             $(".leader").hide();
@@ -376,7 +564,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         $(".pm_detail").show();
     }
 
-
+    // 重力感应
     Gyro.init({
         callback: function(coor, acceleration, ges, mc) {
             if(ges == "shake") {
@@ -385,41 +573,40 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             }
         }
     });
-    /*battle();
-    window.battle = battle;*/
-    // 数据存储
-    localStorage.me = JSON.stringify(me);
+    // battle();
 
-    var a = JSON.parse(localStorage.me);
-
-
+    // 进入战斗场景
     function battle() {
+        if(me.hp == 0) {
+            msg(me.name + "处于无法战斗的状态");
+            return;
+        }
         var p = new Date().getTime() % 5 + 1;
         enemy = clone(pokemon_pool["p" + p]);
+        enemy.role = "enemy";
         
         initInfo();
         $(".battle").show();
-        msg("pokemon出现了", cmd);
+        queue.add(function() {
+            msg(enemy.name + "出现了", cmd);
+        });
     }
-
+    // 结束战斗
     function battleEnd() {
+
         $(".battle").hide();
         $(".cmd").hide();
         refreshList();
+        
         Gyro.connect();
     }
-
-    refreshList();
-
-    // 刷新列表
-    function refreshList() {
-        for (var i = me_pool.length - 1; i >= 0; i--) {
-            me_pool[i].id = i;
-        };
-        $(".pm_list").html(getHtml($('#pm_list_tpl').html(), me_pool));
-    }
-
+    // 初始化战斗场景
     function initInfo() {
+        me.status = "";
+        me.debuff = "";
+        enemy.status = "";
+        enemy.debuff = "";
+
         $(".enemy_hp div").css({
             "width": (enemy.hp / enemy.full_hp * 100) + "%"
         });
@@ -445,150 +632,102 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         $(".cmd").html(skill_cmd);
     }
 
-
-    var t_msg = 0;
-    function msg(str, cb) {
-        // 文本信息
-        clearTimeout(t_msg);
-        $dia_txt.html("");
-        for (var i = 0, l = str.length; i <= l; i++) {
-            (function(i) {
-                t_msg = setTimeout(function(){
-                    $dia_txt.html(str.slice(0, i + 1));
-                }, 50 * i);
-            }(i));
-        };
-        cb && setTimeout(cb, str.length * 50);
-    }
-
-    var cur_round = "me";
-    function round() {
-        // 回合,判断胜负及一些特殊情况
-        if(enemy.hp <= 0) {
-            msg(enemy.name + "被打倒了！", battleEnd);
-            return;
-        }else if(enemy.hp / enemy.full_hp < 0.5){
-            // msg(enemy.name + "处于虚弱状态，点击它进行捕捉");
-        }else if(me.hp <= 0) {
-            msg("你输了！", battleEnd);
-            return;
-        }
-
-        switch(cur_round) {
-            case "me":
-                cmd();
-            break;
-            case "enemy":
-                ai();
-            break;
-        }
-    }
-
-
-
-    function ai() {
-
-        if(enemy.status == "haipia") {
-            cur_round = "me";
-            round();
-            return;
-        }
-        // ai行动
-        msg(enemy.name + "进行攻击!");
-        var ski = Math.random() * 3 | 0;
-        var str;
-        switch(ski) {
-            case 1:
-                me.hp -= enemy.atk;
-                me.hp = Math.max(0, me.hp);
-                me.status = "wound";
-                str = me.name + "受到" + enemy.atk + "点伤害!";
-            break;
-            case 2:
-                me.status = "none";
-                str = enemy.name + "发出求偶信号！未遂！";
-            break;
-            default:
-                me.hp -= enemy.atk;
-                me.hp = Math.max(0, me.hp);
-                me.status = "wound";
-                str = me.name + "受到" + enemy.atk + "点伤害!";
-        }
-        var cb = function() {
-            msg(str, round);
-            cur_round = "me";
-        }
-        refreshInfo("me", cb);
-    }
-
-    function cmd() {
-        // 我方行动
-        $(".cmd").show();
-    }
-
-    // 我方技能
+    // 战斗指令
     $(".cmd").on('tap', 'a', function(){
+        var txt = "";
+        var cb = function(){}
         switch($(this).data("cmd")) {
             case "capture":
+                enemy.status = "none";
                 $(".capture").addClass('ac');
                 $(".cmd").hide();
                 setTimeout(function(){
                     $(".capture").removeClass('ac');
                     if(Math.random() * 0.5 > enemy.hp / enemy.full_hp) {
-                        msg("恭喜你捕获了" + enemy.name, battleEnd);
                         me_pool.push(clone(pokemon_pool[enemy.id]));
+                        txt = "恭喜你捕获了" + enemy.name;
+                        cb = battleEnd;
+                        queue.add(function(){
+                            msg(txt, cb);
+                        });
                         return;
                     }else {
-                        msg("很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高                 ", function() {
-                            cur_round = "enemy";
+                        txt = "很遗憾，你没有抓到" + enemy.name + "，对方血量越低，抓捕的成功率越高";
+                        cb = function() {
+                            round.cur = "enemy";
                             refreshInfo("enemy", round);
+                        };
+                        queue.add(function(){
+                            msg(txt, cb);
                         });
                     }
                 }, 1000);
             break;
             case "atk":
-                enemy.hp -= me.atk;
-                enemy.hp = Math.max(0, enemy.hp);
-                enemy.status = "wound";
-                msg(enemy.name + "受到" + me.atk + "点伤害！");
-
-                $(".cmd").hide();
-                cur_round = "enemy";
-                refreshInfo("enemy", round);
-            break;
-            case "pia":
-                msg(me.name + "发出嚎叫！", function() {
-                    if(Math.random() > 0.7) {
-                        enemy.status = "haipia";
-                        msg(enemy.name + "受到惊吓，感到害pia");
-                    } else {
-                        msg("什么事都没发生");
+                if(me.status == "hit_self") {
+                    me.hp -= me.atk;
+                    me.hp = Math.max(0, me.hp);
+                    me.status = "wound";
+                    str = me.name + "被" + enemy.name + "反击，受到" + me.atk + "点伤害!";
+                    var cb = function() {
+                        round.cur = "enemy";
+                        queue.add(function() {
+                            msg(str, round);
+                        });
                     }
-                });
+                    refreshInfo("enemy", cb);
+                    return;
+                } else {
+                    enemy.hp -= me.atk;
+                    enemy.hp = Math.max(0, enemy.hp);
+                    enemy.status = "wound";
+                    $(".cmd").hide();
 
-                $(".cmd").hide();
-                cur_round = "enemy";
-                refreshInfo("enemy", round);
+                    cb = function() {
+                        round.cur = "enemy";
+                        refreshInfo("enemy", round);
+                    };
+                    queue.add(function(){
+                        msg(me.name + "进行攻击          ", cb);
+                    });
+                    queue.add(function(){
+                        msg(enemy.name + "受到" + me.atk + "点伤害！");
+                    });
+                }
             break;
             case "run":
-                if(Math.random() > 0.6) {
-                    msg(me.name + "企图逃跑！未遂！");
+                $(".cmd").hide();
+                enemy.status = "none";
+                if(Math.random() > 0.8) {
+                    txt = me.name + "企图逃跑！未遂！";
+                    cb = function() {
+                        round.cur = "enemy";
+                        refreshInfo("enemy", round);
+                    };
+                    queue.add(function(){
+                        msg(txt, cb);
+                    });
                 } else {
-
                     msg(me.name + "逃跑了！");
                     battleEnd();
                     return;
                 }
-
+            break;
+            // 技能
+            case "pia":
+            case "batter":
+            case "reatk":
+            case "blood":
+            case "ding":
+                // 嚎叫 
                 $(".cmd").hide();
-                cur_round = "enemy";
-                refreshInfo("enemy", round);
+                skill_pool[$(this).data("cmd")].func(me, enemy);
             break;
         }
     });
 
+    // 刷新战斗显示信息
     function refreshInfo(obj, cb) {
-        // 刷新界面显示信息
         switch(obj) {
             case "enemy":
                 if(enemy.status == "wound") {
@@ -599,7 +738,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
                 });
                 setTimeout(function(){
                     $(".enemy_img").removeClass('wound');
-                    cb();
+                    cb && cb();
                 }, 1500);
             break;
             case "me":
@@ -611,10 +750,146 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
                 });
                 setTimeout(function(){
                     $(".me_img").removeClass('wound');
-                    cb();
+                    cb && cb();
                 }, 1500);
             break;
         }
+    }
+
+    // 刷新精灵列表界面
+    function refreshList() {
+        for (var i = me_pool.length - 1; i >= 0; i--) {
+            me_pool[i].id = i;
+        };
+        me_pool[me.id] = me;
+
+        $(".pm_list").html(getHtml($('#pm_list_tpl').html(), me_pool));
+
+        localStorage.me = JSON.stringify(me);
+        localStorage.me_pool = JSON.stringify(me_pool);
+    }
+    refreshList();
+
+
+    // 战斗函数（回合相关）
+    function round() {
+        // 回合,判断胜负及一些特殊情况
+        if(enemy.hp <= 0) {
+            queue.add(function() {
+                msg(enemy.name + "被打倒了！你增加了1点经验值", battleEnd);
+            });
+            return;
+        }else if(me.hp <= 0) {
+            queue.add(function() {
+                msg(me.name + "被打败了！", battleEnd);
+            });
+            return;
+        }
+
+        switch(round.cur) {
+            case "me":
+                if(enemy.hp / enemy.full_hp < 0.4){
+                    queue.add(function() {
+                        msg(enemy.name + "处于虚弱状态，可以进行捕捉      ");
+                    });
+                }
+                if (me.debuff == "pass") {
+                    me.debuff = "none";
+                    round.cur = "enemy";
+                    queue.add(function() {
+                        msg(me.name + "感到精疲力尽        ", round);
+                    });
+                    return;
+                }
+                if(me.status == "haipia") {
+                    round.cur = "enemy";
+                    queue.add(function() {
+                        msg(me.name + "感到害pia，无法动弹", round);
+                    });
+                    return;
+                }
+                cmd();
+            break;
+            case "enemy":
+                if (enemy.debuff == "pass") {
+                    enemy.debuff = "none";
+                    round.cur = "me";
+                    queue.add(function() {
+                        msg(enemy.name + "感到精疲力尽        ", round);
+                    });
+                    return;
+                }
+                if(enemy.status == "haipia") {
+                    round.cur = "me";
+                    queue.add(function() {
+                        msg(enemy.name + "感到害pia，无法动弹", round);
+                    });
+                    return;
+                }
+                ai();
+            break;
+        }
+    }
+    round.cur = "me";
+
+    function ai() {
+        // ai行动
+        var ski = Math.random() * 5 | 0;
+        var str;
+        switch(ski) {
+            case 0:
+            case 1:
+                queue.add(function() {
+                    msg(enemy.name + "进行攻击!");
+                });
+                if(enemy.status == "hit_self") {
+                    enemy.hp -= enemy.atk;
+                    enemy.hp = Math.max(0, enemy.hp);
+                    enemy.status = "wound";
+                    str = enemy.name + "被" + me.name + "反击，受到" + enemy.atk + "点伤害!";
+                    var cb = function() {
+                        round.cur = "me";
+                        queue.add(function() {
+                            msg(str, round);
+                        });
+                    }
+                    refreshInfo("enemy", cb);
+                    return;
+                } else {
+                    me.hp -= enemy.atk;
+                    me.hp = Math.max(0, me.hp);
+                    me.status = "wound";
+                    str = me.name + "受到" + enemy.atk + "点伤害!";
+        
+                    var cb = function() {
+                        round.cur = "me";
+                        queue.add(function() {
+                            msg(str, round);
+                        });
+                    }
+                    refreshInfo("me", cb);
+                }
+            break;
+            case 2:
+                 skill_pool[enemy.skill[0]].func(enemy, me);
+            break;
+            default:
+                me.status = "none";
+                str = enemy.name + "在发呆";
+        
+                var cb = function() {
+                    round.cur = "me";
+                    queue.add(function() {
+                        msg(str, round);
+                    });
+                }
+                refreshInfo("me", cb);
+        }
+    }
+
+    // 我方行动
+    function cmd() {
+        $(".cmd").show();
     }
 
 }());
