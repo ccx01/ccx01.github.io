@@ -431,6 +431,9 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
     if(localStorage.me) {
         me = JSON.parse(localStorage.me);
+        me.role = "me";
+    }
+    if(localStorage.me_pool) {
         me_pool = JSON.parse(localStorage.me_pool);
     }
 
@@ -439,7 +442,6 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     // 数据存储
     localStorage.me = JSON.stringify(me);
     localStorage.me_pool = JSON.stringify(me_pool);
-
 
     var $dia = $(".dialog");
     var $dia_txt = $(".dialog span");
