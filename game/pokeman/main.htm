@@ -9,7 +9,7 @@
     <meta name="mobile-web-app-capable"content="yes">
     <meta name="apple-mobile-web-app-capable"content="yes"/>
     <meta name="Description"content="恶搞版web口袋妖怪，没有任何版权，属于个人兴趣作品，请勿用于商业目的。"/>
-    <meta name="Keywords"content="pokemon,口袋妖怪,三国志,游戏"/>
+    <meta name="Keywords"content="pokeman,pokemon,口袋妖怪,三国志,游戏"/>
     <meta name="viewport"content="width=640,minimum-scale=0,maximum-scale=5,user-scalable=no">
 <title>破壳曼 够！</title>
 <style>
@@ -28,17 +28,15 @@ a{text-decoration:none;}
 a:focus{outline:none}
 
 /*page*/
-body{font-size:1rem;}
-.stage{width:100%;height:100%;max-width:640px;padding-bottom:150px;margin:0 auto;position:relative;}
+body{font-size:1rem;background:url(img/shake.png) center no-repeat;background-size:40%;}
+.stage{width:100%;max-width:640px;padding-bottom:150px;margin:0 auto;position:relative;}
 .dr{margin:100px auto;width:300px;height:400px;background:url(img/dr.jpg) no-repeat;background-size:100%;}
 .dialog{position:fixed;bottom:0;left:0;width:640px;height:100px;background:#000;border-radius:5px;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:1.5em;z-index:999;}
 .dialog:before{content:"";width:630px;height:90px;bottom:4px;left:4px;border-radius:5px;border:1px solid #fff;background:#000;position:absolute;z-index:-1;}
 .confirm,.cmd{display:none;position:fixed;color:#fff;font-size:1.5rem;padding:13px 30px;box-sizing:border-box;line-height:2em;z-index:999;bottom:110px;right:10px;}
 .confirm a,.cmd a{display:block;color:#fff;}
-.cmd{    width: 50%;}
-.cmd a{width:120px;float:left;    border-radius: 5px;
-    margin: 5px;
-    text-align: center;    background-color: #000;}
+.cmd{width:50%;}
+.cmd a{width:120px;float:left;border-radius:5px;margin:5px;text-align:center;background-color:#000;}
 .cur{display:block;width:0px;height:0px;border:10px solid rgba(0,0,0,0);border-top:10px solid #fff;position:absolute;right:15px;bottom:5px;-webkit-animation:bounce 0.8s infinite;animation:bounce 0.8s infinite;}
 @-webkit-keyframes bounce{
     from{-webkit-transform:translateY(0px);}
@@ -86,65 +84,17 @@ body{font-size:1rem;}
 #debug{display:none;position:absolute;top:0;left:0;width:100%;z-index:99;background-color:rgba(0,0,0,0.5);height:50px;color:#fff;}
 .start{display:none;background:rgba(0,0,0,0.8);position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;}
 .btn{width:400px;text-align:center;margin:40% auto;display:block;border:1px solid;color:#000;font-size:30px;line-height:50px;background-color:rgba(255,255,255,0.8);}
-
-.pm_list {
-    font-size: 30px;
-    line-height: 45px;
-}
-.pm_list li {
-    padding: 30px;
-    border-bottom: 1px solid #333;
-    overflow: hidden;
-}
-.pm_list_img {
-    float: left;
-    width: 100px;
-    height: 100px;
-}
-.pm_list_img img{
-    height: 100%;
-}
-.pm_detail {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    font-size: 30px;
-    line-height: 1.5em;
-    padding: 100px 20px;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    background-color: rgba(0,0,0,0.8);
-    overflow: hidden;
-    box-sizing: border-box;
-}
-.pm_detail_img {
-    float: left;
-    width: 190px;
-    margin-right: 20px;
-}
-.pm_detail_img img{
-        margin: 0 auto;
-    height: 190px;
-}
-.pm_detail_info {
-    float: left;
-        width: 350px;
-}
-.leader,.feed,.close {
-    border: 1px solid;
-    margin: 20px 0;
-    text-align: center;
-    background-color: rgba(255,255,255,0.1);
-}
-.tpl{display: none;}
-h2 {
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    box-shadow: 0 1px 3px #999;
-}
+.pm_list{font-size:30px;line-height:45px;}
+.pm_list li{padding:30px;border-bottom:1px solid #333;overflow:hidden;}
+.pm_list_img{float:left;width:100px;height:100px;}
+.pm_list_img img{height:100%;}
+.pm_detail{display:none;position:fixed;top:0;left:0;font-size:30px;line-height:1.5em;padding:100px 20px;width:100%;height:100%;color:#fff;background-color:rgba(0,0,0,0.8);overflow:hidden;box-sizing:border-box;}
+.pm_detail_img{float:left;width:190px;margin-right:20px;}
+.pm_detail_img img{margin:0 auto;height:190px;}
+.pm_detail_info{float:left;width:350px;}
+.leader,.feed,.close{border:1px solid;margin:20px 0;text-align:center;background-color:rgba(255,255,255,0.1);}
+.tpl{display:none;}
+h2{height:50px;line-height:50px;text-align:center;box-shadow:0 1px 3px #999;}
 </style>
 </head>
 <body>
@@ -157,13 +107,13 @@ h2 {
         <!-- 已有精灵列表 -->
         <h2>拥有的小精灵</h2>
         <ul class="pm_list">
-            <li data-pm="1">
+            <!-- <li data-pm="1">
                 <div class="pm_list_img"><img src="img/p1.png"></div>
                 <div class="pm_list_info">
                     <p>阿biang哥 (lv1)</p>
                     <p>体力：20/20</p>
                 </div>
-            </li>
+            </li> -->
         </ul>
 
         <!-- 精灵详情 -->
@@ -175,14 +125,14 @@ h2 {
                 <div class="close">关闭</div>
             </div>
             <div class="pm_detail_info">
-                <p>阿biang哥</p>
+                <!-- <p>阿biang哥</p>
                 <p>等级：1</p>
                 <p>体力：20/20</p>
                 <p>武力：2</p>
                 <p>智力：2</p>
                 <p>技能：
                     <br>嚎叫——有一定概率使对方感到害pia，跳过一个回合
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -227,19 +177,23 @@ h2 {
         <li data-order="{#id}">
             <div class="pm_list_img"><img src="{#img}"></div>
             <div class="pm_list_info">
-                <p>{#name} (lv1)</p>
+                <p>{#name} (lv{#lv})</p>
                 <p>体力：{#hp}/{#full_hp}</p>
             </div>
         </li>
     </template>
 <script type="text/javascript" src="js/zepto.min.js"></script>
-<script src="js/gyro.js"></script>
+<!--<script src="js/gyro.js"></script>-->
+<script type="text/javascript" src="js/shake.js"></script>
 <script>
 if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DOMContentLoaded",function (e){document.querySelector('.stage').style.zoom = e.target.activeElement.clientWidth / 640;}
 );}
 
+
 (function(){
 
+    // localStorage.me = "";
+    // localStorage.me_pool = "";
     // 功能函数
     function getHtml(tpl, data) {
         var html = "";
@@ -275,7 +229,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 5,
             hp: 20,
             full_hp: 20,
-            skill: ['pia']
+            skill: ['pia'],
+            lv: 1
         },
         "p2": {
             id: "p2",
@@ -284,7 +239,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 3,
             hp: 18,
             full_hp: 18,
-            skill: ['batter']
+            skill: ['batter'],
+            lv: 1
         },
         "p3": {
             id: "p3",
@@ -293,7 +249,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 6,
             hp: 13,
             full_hp: 13,
-            skill: ['reatk']
+            skill: ['reatk'],
+            lv: 1
         },
         "p4": {
             id: "p4",
@@ -302,7 +259,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 2,
             hp: 33,
             full_hp: 33,
-            skill: ['ding']
+            skill: ['ding'],
+            lv: 1
         },
         "p5": {
             id: "p5",
@@ -311,7 +269,8 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             atk: 10,
             hp: 10,
             full_hp: 10,
-            skill: ['blood']
+            skill: ['blood'],
+            lv: 1
         }
     }
 
@@ -429,12 +388,21 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     var enemy = clone(pokemon_pool["p1"]);
         enemy.role = "enemy";
 
-    if(localStorage.me) {
+    var exp = 0;
+    var feed = 0;
+
+    if(!!localStorage.me) {
         me = JSON.parse(localStorage.me);
         me.role = "me";
     }
-    if(localStorage.me_pool) {
+    if(!!localStorage.me_pool) {
         me_pool = JSON.parse(localStorage.me_pool);
+    }
+    if(!!localStorage.exp) {
+        exp = localStorage.exp;
+    }
+    if(!!localStorage.feed) {
+        feed = localStorage.feed;
     }
 
     // 我的持有灵
@@ -526,6 +494,16 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         $(".pm_detail").hide();
     });
     $(".feed").tap(function(){
+        var d = (new Date().getTime() - feed) * 0.001 | 0;
+        if(d < 600) {
+            var m = (600 - d) / 60 | 0 + 1;
+            msg(m + "分钟后才可喂食");
+            return;
+        } else {
+            feed = new Date().getTime();
+            localStorage.feed = feed;
+        }
+
         var or = $(this).parents(".pm_detail").data("order");
         me_pool[or].hp += 20;
         me_pool[or].hp = Math.min(me_pool[or].hp, me_pool[or].full_hp);
@@ -559,23 +537,12 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             pm_detail_info += '<p>体力：' + me_pool[or]["hp"] + '/' + me_pool[or]["full_hp"] + '</p>';
             pm_detail_info += '<p>武力：' + me_pool[or]["atk"] + '</p>';
             for (var i = me_pool[or]["skill"].length - 1; i >= 0; i--) {
-                pm_detail_info += '<p>技能：<br>' + me_pool[or]["skill"] + '——' + skill_pool[me_pool[or]["skill"][i]]['brief'] + '</p>';
+                pm_detail_info += '<p>技能：<br>' + skill_pool[me_pool[or]["skill"][i]]['name'] + '——' + skill_pool[me_pool[or]["skill"][i]]['brief'] + '</p>';
             };
         $(".pm_detail_info").html(pm_detail_info);
 
         $(".pm_detail").show();
     }
-
-    // 重力感应
-    Gyro.init({
-        callback: function(coor, acceleration, ges, mc) {
-            if(ges == "shake") {
-                battle();
-                Gyro.disconnect();
-            }
-        }
-    });
-    // battle();
 
     // 进入战斗场景
     function battle() {
@@ -600,7 +567,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
         $(".cmd").hide();
         refreshList();
         
-        Gyro.connect();
+        // Gyro.connect();
     }
     // 初始化战斗场景
     function initInfo() {
@@ -769,6 +736,7 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
 
         localStorage.me = JSON.stringify(me);
         localStorage.me_pool = JSON.stringify(me_pool);
+        localStorage.exp = exp;
     }
     refreshList();
 
@@ -777,13 +745,19 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     function round() {
         // 回合,判断胜负及一些特殊情况
         if(enemy.hp <= 0) {
+            exp++;
+            me.lv++;
             queue.add(function() {
-                msg(enemy.name + "被打倒了！你增加了1点经验值", battleEnd);
+                msg(enemy.name + "被打倒了！");
+                msg(me.name + "lv提升！你目前的经验值为" + exp, battleEnd);
             });
             return;
         }else if(me.hp <= 0) {
+            me.lv--;
+            me.lv = Math.max(0, me.lv);
             queue.add(function() {
-                msg(me.name + "被打败了！", battleEnd);
+                msg(me.name + "被打败了！");
+                msg(me.name + " lv" + me.lv, battleEnd);
             });
             return;
         }
@@ -878,14 +852,14 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
             default:
                 me.status = "none";
                 str = enemy.name + "在发呆";
-        
                 var cb = function() {
                     round.cur = "me";
-                    queue.add(function() {
-                        msg(str, round);
-                    });
+                    refreshInfo("me", round);
                 }
-                refreshInfo("me", cb);
+
+                queue.add(function() {
+                    msg(str, cb);
+                });
         }
     }
 
@@ -893,6 +867,26 @@ if (navigator.appVersion.indexOf('Android') != -1){document.addEventListener("DO
     function cmd() {
         $(".cmd").show();
     }
+
+    // 重力感应
+    var myShakeEvent = new Shake({
+        threshold: 15
+    });
+
+    myShakeEvent.start();
+    window.addEventListener('shake', shakeEventDidOccur, false);
+    function shakeEventDidOccur () {
+        battle();
+    }
+    /*Gyro.init({
+        callback: function(coor, acceleration, ges, mc) {
+            if(ges == "shake") {
+                battle();
+                Gyro.disconnect();
+            }
+        }
+    });*/
+    // battle();
 
 }());
 

@@ -58,7 +58,7 @@
 
 	//反馈信息
 	var msg = "无动作";
-	var ges = "";
+	var ges = 0;
 
 	Gyro.init = function(cfg) {
 		// 初始化参数
@@ -101,7 +101,7 @@
 
 	Gyro.disconnect = function() {
 		msg = "";
-		ges = "";
+		ges = 0;
 		window.removeEventListener('deviceorientation', deviceorientation);
 		window.removeEventListener('devicemotion', devicemotion);
 	}
@@ -255,8 +255,7 @@
 					motion_callback.z = 0;
 			}
 
-			if(Math.abs(offset.x) > 20 || Math.abs(offset.y) > 15 || Math.abs(offset.z) > 10) {
-			// if(/x+.*(y+|z+)+/.test(msg)) {
+			if(Math.abs(offset.x + offset.y + offset.z) > 30) {
 				ges = "shake";
 			} else {
 				ges = msg;
