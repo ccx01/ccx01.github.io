@@ -1,14 +1,14 @@
 var list = {
 
-	"Manual": {
-		"Introduction": [
-			[ "Creating a scene", "manual/introduction/Creating-a-scene" ],
-			[ "Matrix transformations", "manual/introduction/Matrix-transformations" ]
+	"手册": {
+		"介绍": [
+			[ "创建场景", "manual/introduction/Creating-a-scene" ],
+			[ "矩阵变换", "manual/introduction/Matrix-transformations" ]
 		]
 	},
 
-	"Reference": {
-		"Constants": [
+	"参考": {
+		"常量": [
 			[ "CustomBlendingEquation", "api/constants/CustomBlendingEquations"],
 			[ "GLState", "api/constants/GLState"],
 			[ "Materials", "api/constants/Materials"],
@@ -16,14 +16,14 @@ var list = {
 			[ "Textures", "api/constants/Textures"]
 		],
 
-		"Cameras": [
+		"相机": [
 			[ "Camera", "api/cameras/Camera" ],
 			[ "CubeCamera", "api/cameras/CubeCamera" ],
 			[ "OrthographicCamera", "api/cameras/OrthographicCamera" ],
 			[ "PerspectiveCamera", "api/cameras/PerspectiveCamera" ]
 		],
 
-		"Core": [
+		"核心": [
 			[ "BufferAttribute", "api/core/BufferAttribute" ],
 			[ "BufferGeometry", "api/core/BufferGeometry" ],
 			[ "Clock", "api/core/Clock" ],
@@ -34,7 +34,7 @@ var list = {
 			[ "Raycaster", "api/core/Raycaster" ]
 		],
 
-		"Lights": [
+		"光源": [
 			[ "AmbientLight", "api/lights/AmbientLight" ],
 			[ "DirectionalLight", "api/lights/DirectionalLight" ],
 			[ "HemisphereLight", "api/lights/HemisphereLight" ],
@@ -44,7 +44,7 @@ var list = {
 		],
 
 
-		"Loaders": [
+		"加载器": [
 			[ "BabylonLoader", "api/loaders/BabylonLoader" ],
 			[ "BufferGeometryLoader", "api/loaders/BufferGeometryLoader" ],
 			[ "Cache", "api/loaders/Cache" ],
@@ -66,7 +66,7 @@ var list = {
 			[ "XHRLoader", "api/loaders/XHRLoader" ]
 		],
 
-		"Materials": [
+		"材质": [
 			[ "LineBasicMaterial", "api/materials/LineBasicMaterial" ],
 			[ "LineDashedMaterial", "api/materials/LineDashedMaterial" ],
 			[ "Material", "api/materials/Material" ],
@@ -83,7 +83,7 @@ var list = {
 			[ "SpriteMaterial", "api/materials/SpriteMaterial" ]
 		],
 
-		"Math": [
+		"运算": [
 			[ "Box2", "api/math/Box2" ],
 			[ "Box3", "api/math/Box3" ],
 			[ "Color", "api/math/Color" ],
@@ -104,7 +104,7 @@ var list = {
 			[ "Vector4", "api/math/Vector4" ]
 		],
 
-		"Objects": [
+		"对象": [
 			[ "Bone", "api/objects/Bone" ],
 			[ "LensFlare", "api/objects/LensFlare" ],
 			[ "Line", "api/objects/Line" ],
@@ -118,59 +118,59 @@ var list = {
 			[ "Sprite", "api/objects/Sprite" ]
 		],
 
-		"Renderers": [
+		"渲染器": [
 			[ "CanvasRenderer", "api/renderers/CanvasRenderer" ],
 			[ "WebGLRenderer", "api/renderers/WebGLRenderer" ],
 			[ "WebGLRenderTarget", "api/renderers/WebGLRenderTarget" ],
 			[ "WebGLRenderTargetCube", "api/renderers/WebGLRenderTargetCube" ]
 		],
 
-		"Renderers / Shaders": [
+		"渲染器 / 着色器": [
 			[ "ShaderChunk", "api/renderers/shaders/ShaderChunk" ],
 			[ "ShaderLib", "api/renderers/shaders/ShaderLib" ],
 			[ "UniformsLib", "api/renderers/shaders/UniformsLib" ],
 			[ "UniformsUtils", "api/renderers/shaders/UniformsUtils" ]
 		],
 
-		"Renderers / WebGL": [
+		"渲染器 / WebGL": [
 			[ "WebGLProgram", "api/renderers/webgl/WebGLProgram" ],
 			[ "WebGLShader", "api/renderers/webgl/WebGLShader" ],
 			[ "WebGLState", "api/renderers/webgl/WebGLState" ]
 		],
 
-		"Renderers / WebGL / Plugins": [
+		"渲染器 / WebGL / 插件": [
 			[ "LensFlarePlugin", "api/renderers/webgl/plugins/LensFlarePlugin" ],
 			[ "ShadowMapPlugin", "api/renderers/webgl/plugins/ShadowMapPlugin" ],
 			[ "SpritePlugin", "api/renderers/webgl/plugins/SpritePlugin" ]
 		],
 
-		"Scenes": [
+		"场景": [
 			[ "Fog", "api/scenes/Fog" ],
 			[ "FogExp2", "api/scenes/FogExp2" ],
 			[ "Scene", "api/scenes/Scene" ]
 		],
 
-		"Textures": [
+		"纹理": [
 			[ "CubeTexture", "api/textures/CubeTexture" ],
 			[ "CompressedTexture", "api/textures/CompressedTexture" ],
 			[ "DataTexture", "api/textures/DataTexture" ],
 			[ "Texture", "api/textures/Texture" ]
 		],
 
-		"Extras": [
+		"其他": [
 			[ "FontUtils", "api/extras/FontUtils" ],
 			[ "GeometryUtils", "api/extras/GeometryUtils" ],
 			[ "ImageUtils", "api/extras/ImageUtils" ],
 			[ "SceneUtils", "api/extras/SceneUtils" ]
 		],
 
-		"Extras / Animation": [
+		"其他 / 动画": [
 			[ "Animation", "api/extras/animation/Animation" ],
 			[ "AnimationHandler", "api/extras/animation/AnimationHandler" ],
 			[ "KeyFrameAnimation", "api/extras/animation/KeyFrameAnimation" ]
 		],
 
-		"Extras / Core": [
+		"其他 / 核心": [
 			[ "Curve", "api/extras/core/Curve" ],
 			[ "CurvePath", "api/extras/core/CurvePath" ],
 			[ "Gyroscope", "api/extras/core/Gyroscope" ],
@@ -178,7 +178,7 @@ var list = {
 			[ "Shape", "api/extras/core/Shape" ]
 		],
 
-		"Extras / Curves": [
+		"其他 / 曲线": [
 			[ "ArcCurve", "api/extras/curves/ArcCurve" ],
 			[ "ClosedSplineCurve3", "api/extras/curves/ClosedSplineCurve3" ],
 			[ "CubicBezierCurve", "api/extras/curves/CubicBezierCurve" ],
@@ -192,7 +192,7 @@ var list = {
 			[ "SplineCurve3", "api/extras/curves/SplineCurve3" ]
 		],
 
-		"Extras / Geometries": [
+		"其他 / 形状": [
 			[ "BoxGeometry", "api/extras/geometries/BoxGeometry" ],
 			[ "CircleGeometry", "api/extras/geometries/CircleGeometry" ],
 			[ "CubeGeometry", "api/extras/geometries/CubeGeometry" ],
@@ -215,7 +215,7 @@ var list = {
 			[ "TubeGeometry", "api/extras/geometries/TubeGeometry" ]
 		],
 
-		"Extras / Helpers": [
+		"其他 / 辅助物": [
 			[ "ArrowHelper", "api/extras/helpers/ArrowHelper" ],
 			[ "AxisHelper", "api/extras/helpers/AxisHelper" ],
 			[ "BoundingBoxHelper", "api/extras/helpers/BoundingBoxHelper" ],
@@ -232,12 +232,12 @@ var list = {
 			[ "WireframeHelper", "api/extras/helpers/WireframeHelper" ]
 		],
 
-		"Extras / Objects": [
+		"其他 / 对象": [
 			[ "ImmediateRenderObject", "api/extras/objects/ImmediateRenderObject" ],
 			[ "MorphBlendMesh", "api/extras/objects/MorphBlendMesh" ]
 		],
 
-		"Examples" : [
+		"示例" : [
 			[ "CombinedCamera", "api/examples/cameras/CombinedCamera" ],
 			[ "LookupTable", "api/examples/Lut" ]
 
