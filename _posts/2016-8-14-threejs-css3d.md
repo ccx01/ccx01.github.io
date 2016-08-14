@@ -53,8 +53,10 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 ![渲染器dom](/img/2016-8-14-threejs-css3d/e1.png)
 
+渲染器内置入scene(场景)，camera(相机)。
+
 ```javascript
-renderer.render( scene, camera );`渲染器内置入scene(场景)，camera(相机)。
+renderer.render( scene, camera );
 ```
 
 至此场景渲染器就布置完成了。
