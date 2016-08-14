@@ -9,7 +9,7 @@ tags: [threejs, web]
 
 距离上一篇居然隔了3个多月，很多细节忘的差不多了。
 
-虽然是核心库，但是这个库的代码只有上一篇轨迹球的一版。
+虽然是核心库，但是这个库的代码量只有上一篇轨迹球的一半，7k。
 
 `CSS3DRenderer.js`css3d渲染器顾名思义，这个就是将threejs里的3d元素以css3d的方式来呈现。
 
@@ -21,7 +21,6 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.domElement.style.position = 'absolute';
 document.getElementById( 'container' ).appendChild( renderer.domElement );
 
-……
 
 renderer.render( scene, camera );
 ```
@@ -56,6 +55,7 @@ document.getElementById( 'container' ).appendChild( renderer.domElement );
 
 ```javascript
 renderer.render( scene, camera );`渲染器内置入scene(场景)，camera(相机)。
+```
 
 至此场景渲染器就布置完成了。
 
@@ -106,7 +106,7 @@ renderer.render( scene, camera );`渲染器内置入scene(场景)，camera(相�
 object = new THREE.Object3D();
 ```
 
-这个3d对象是一个threejs对象，也就是说，不仅仅是css3d，其他cavas，webgl渲染器一样能使用这个对象。关于object3d的api可以查看这里<a href="http://ccx01.github.io/docs/#参考/核心/Object3D" target="_blank">http://ccx01.github.io/docs/#参考/核心/Object3D</a>
+这个3d对象是一个threejs对象，也就是说，不仅仅是css3d，其他canvas，webgl渲染器一样能使用这个对象。关于object3d的api可以查看这里<a href="http://ccx01.github.io/docs/#参考/核心/Object3D" target="_blank">http://ccx01.github.io/docs/#参考/核心/Object3D</a>
 
 既然我们这篇讲的是css3d模块，那么css3d模块要使用这个对象该怎么办？又会产生什么结果？
 
@@ -135,7 +135,6 @@ var element = document.createElement( 'div' );
 element.className = 'element';
 element.style.backgroundColor = 'rgba(0,0,0,1)';
 
-……
 
 var object = new THREE.CSS3DObject( element );
 ```
@@ -155,12 +154,6 @@ var object = new THREE.CSS3DObject( element );
 实际上`CSS3DRenderer.js`的核心代码是在对threejs的3d属性到css3d的transform进行计算转换（主要是对matrix3d的计算）。
 
 ```javascript
-var epsilon = function ( value ) {
-
-    return Math.abs( value ) < Number.EPSILON ? 0 : value;
-
-};
-
 var getObjectCSSMatrix = function ( matrix ) {
 
     var elements = matrix.elements;
@@ -183,8 +176,19 @@ var getObjectCSSMatrix = function ( matrix ) {
         epsilon( elements[ 14 ] ) + ',' +
         epsilon( elements[ 15 ] ) +
     ')';
-
 };
+
+    matrix.copy( camera.matrixWorldInverse );
+    matrix.transpose();
+    matrix.copyPosition( object.matrixWorld );
+    matrix.scale( object.scale );
+
+    matrix.elements[ 3 ] = 0;
+    matrix.elements[ 7 ] = 0;
+    matrix.elements[ 11 ] = 0;
+    matrix.elements[ 15 ] = 1;
+
+    style = getObjectCSSMatrix( matrix );
 ```
 
 对`camera`的转换则需要引人`preserve-3d`。
