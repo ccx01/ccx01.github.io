@@ -63,7 +63,7 @@ var onDocumentLoad = function ( event ) {
 
 	button.addEventListener( 'click', function ( event ) {
 
-		window.open( 'https://github.com/mrdoob/three.js/blob/dev/docs/' + section + '/' + path + '.html' );
+		window.open( 'https://github.com/ccx01/ccx01.github.io/tree/master/docs/' + section + '/' + path + '.html' );
 
 	}, false );
 
