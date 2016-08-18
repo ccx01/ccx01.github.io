@@ -12,89 +12,126 @@
 
 		<h1>[name]</h1>
 
-		<div class="desc">Camera with perspective projection.</div>
+		<div class="desc">透视投影相机。</div>
 
 
-		<h2>Example</h2>
+		<h2>示例</h2>
 
-		<div>[example:canvas_effects_stereo effects / stereo ]</div>
-		<div>[example:canvas_geometry_birds geometry / birds ]</div>
-		<div>[example:canvas_geometry_cube geometry / cube ]</div>
-		<div>[example:webgl_animation_skinning_blending animation / skinning / blending ]</div>
-		<div>[example:webgl_animation_skinning_morph animation / skinning / blending ]</div>
-		<div>[example:webgl_interactive_cubes interactive / cubes ]</div>
-		<div>[example:webgl_loader_collada_skinning loader / collada / skinning ]</div>
-
-		<code>var camera = new THREE.PerspectiveCamera( 45, width / height, 1, 1000 );
-scene.add( camera );</code>
-
+		<div><a href="http://threejs.org/examples/#canvas_geometry_birds" target="_blank">几何/鸟类 </a></div>
+		<div><a href="http://threejs.org/examples/#canvas_geometry_cube" target="_blank">几何/立方体 </a></div>
+		<div><a href="http://threejs.org/examples/#webgl_animation_skinning_blending" target="_blank">动画/皮肤/混合 </a></div>
+		<div><a href="http://threejs.org/examples/#webgl_animation_skinning_morph" target="_blank">动画/皮肤/变形 </a></div>
+		<div><a href="http://threejs.org/examples/#webgl_effects_stereo" target="_blank">效果/VR </a></div>
+		<div><a href="http://threejs.org/examples/#webgl_interactive_cubes" target="_blank">交互/立方体 </a></div>
+		<div><a href="http://threejs.org/examples/#webgl_loader_collada_skinning" target="_blank">加载器/collada/皮肤 </a></div>
 
 		<h2>Constructor</h2>
 
 		<h3>[name]( [page:Float fov], [page:Float aspect], [page:Float near], [page:Float far] )</h3>
 		<div>
-		fov — Camera frustum vertical field of view.<br />
-		aspect — Camera frustum aspect ratio.<br />
-		near — Camera frustum near plane.<br />
-		far — Camera frustum far plane.
+		fov — 相机视锥垂直角度。<br />
+		aspect — 相机视锥宽高比。<br />
+		near — 相机视锥近侧面。<br />
+		far — 相机视锥远侧面。
 		</div>
 
 
-		<h2>Properties</h2>
-
-		<h3>[property:number zoom]</h3>
-		<div>Gets or sets the zoom factor of the camera. </div>
+		<h2>属性</h2>
 
 		<h3>[property:Float fov]</h3>
-		<div>Camera frustum vertical field of view, from bottom to top of view, in degrees.</div>
+		<div>相机视锥垂直角度，从下到上，单位 度。</div>
 
-		<h3>[property:Float aspect]</h3>
-		<div>Camera frustum aspect ratio, window width divided by window height.</div>
+		<h3>[property:number zoom]</h3>
+		<div>获取或设置相机的变焦倍数zoom。</div>
 
 		<h3>[property:Float near]</h3>
-		<div>Camera frustum near plane.</div>
+		<div>相机视锥近侧面。</div>
 
 		<h3>[property:Float far]</h3>
-		<div>Camera frustum far plane.</div>
+		<div>相机视锥远侧面。</div>
 
-
-		<h2>Methods</h2>
-
-		<h3>[method:null setLens]( [page:Float focalLength], [page:Float frameSize] )</h3>
+		<h3>[property:Float focus]</h3>
 		<div>
-		focalLength — focal length<br />
-		frameSize — frame size
+			让对象产生立体效果的距离。这个参数不影响投影矩阵，除非是使用立体相机。
+		</div>
+
+		<h3>[property:Float aspect]</h3>
+		<div>相机视锥宽高比，窗口宽度除以高度。</div>
+
+		<h3>[property:Object view]</h3>
+		<div>视锥窗口格式或为null。</div>
+
+		<h3>[property:Float filmGauge]</h3>
+		<div>
+		较大坐标轴的影片尺寸。默认为35（毫米）。这个参数不影响投影矩阵，除非.filmOffset设置为非零值。</div>
+
+		<h3>[property:Float filmOffset]</h3>
+		<div>水平偏移量，单位与.filmGauge相同。</div>
+
+		<h2>方法</h2>
+
+		<h3>[method:Float getEffectiveFOV]()</h3>
+		<div>
+		根据.zoom属性返回当前的垂直角度。
+		</div>
+
+		<h3>[method:Float getFocalLength]()</h3>
+		<div>
+		根据.filmGauge返回当前的.fov焦距。
+		</div>
+
+		<h3>[method:Float getFilmWidth]()</h3>
+		<div>
+		返回影片的景色宽度。如果 .aspect 大于等于1（横屏），则返回值等于 .filmGauge。
+		</div>
+
+		<h3>[method:Float getFilmHeight]()</h3>
+		<div>
+		返回影片的景色高度。如果 .aspect 小于等于1（竖屏），则返回值等于 .filmGauge。
+		</div>
+
+		<h3>[method:null setFocalLength]( [page:Float focalLength] )</h3>
+		<div>
+		根据当前的.filmGauge的焦距设置FOV。
+		</div>
+		<div>
+		默认情况下，焦距为特定的35mm（全景）相机。
+		</div>
+
+		<h3>[method:null setLens]( [page:Float focalLength], [page:Float filmGauge] )</h3>
+		<div>
+		focalLength — 焦距<br />
+		frameGauge — 胶片尺寸
 		</div>
 
 		<div>
-		Uses focal length (in mm) to estimate and set FOV 35mm (fullframe) camera is used if frame size is not specified.<br />
-		Formula based on [link:http://www.bobatkins.com/photography/technical/field_of_view.html]
+			通过焦距设置.fov。也可设置.filmGause。
+			该方法已废弃，请使用 .setFocalLength 来代替。
 		</div>
 
 		<h3>[method:null setViewOffset]( [page:Float fullWidth], [page:Float fullHeight], [page:Float x], [page:Float y], [page:Float width], [page:Float height] )</h3>
 		<div>
-		fullWidth — full width of multiview setup<br />
-		fullHeight — full height of multiview setup<br />
-		x — horizontal offset of subcamera<br />
-		y — vertical offset of subcamera<br />
-		width — width of subcamera<br />
-		height — height of subcamera
+		fullWidth — 多视图总宽度<br />
+		fullHeight — 多视图总高度<br />
+		x — 副相机水平偏移量<br />
+		y — 副相机垂直偏移量<br />
+		width — 副相机宽度<br />
+		height — 副相机高度
 		</div>
 
 		<div>
-		Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
+		为较大的视锥设置一个偏移量。这个方法在多窗口或多显示器/多相机时非常有用。
 		</div>
 
 		<div>
-		For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:<br />
-
+		比如你有3x2个显示器，每个显示器都是1920x1080，并且显示器像这样排布：<br />
 		<pre>+---+---+---+
 | A | B | C |
 +---+---+---+
 | D | E | F |
 +---+---+---+</pre>
 
-		then for each monitor you would call it like this:<br />
+		然后，你需要这样调用每个显示器：<br />
 
 		<code>var w = 1920;
 var h = 1080;
@@ -115,26 +152,31 @@ camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
 camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
 </code>
 
-		Note there is no reason monitors have to be the same size or in a grid.
+		注意，显示器设为统一尺寸或以网格排布并没什么理由。
+		</div>
+
+		<h3>[method:null clearViewOffset]()</h3>
+		<div>
+		移除.setViewOffset方法设置的偏移量。
 		</div>
 
 		<h3>[method:null updateProjectionMatrix]()</h3>
 		<div>
-		Updates the camera projection matrix. Must be called after change of parameters.
+		更新相机的投影矩阵。参数更新后必须调用。
 		</div>
 
 		<h3>[method:PerspectiveCamera clone]()</h3>
 		<div>
 		<br />
-		It returns a clone of PerspectiveCamera.
+		返回一个透视相机的克隆。
 		</div>
 
 		<h3>[method:JSON toJSON]()</h3>
 		<div>
-		Return camera data in JSON format.
+		以JSON格式返回相机数据。
 		</div>
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 	</body>

@@ -12,87 +12,87 @@
 
 		<h1>[name]</h1>
 
-		<div class="desc">Camera with orthographic projection.</div>
+		<div class="desc">正交投影相机。</div>
 
 
-		<h2>Example</h2>
+		<h2>示例</h2>
 
-		<div>[example:canvas_camera_orthographic camera / orthographic ]</div>
-		<div>[example:canvas_camera_orthographic2 camera / orthographic2 ]</div>
-		<div>[example:webgl_camera camera ]</div>
-		<div>[example:webgl_interactive_cubes_ortho interactive / cubes / ortho ]</div>
-		<div>[example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic ]</div>
-		<div>[example:webgl_postprocessing_advanced postprocessing / advanced ]</div>
-		<div>[example:webgl_postprocessing_dof2 postprocessing / dof2 ]</div>
-		<div>[example:webgl_postprocessing_godrays postprocessing / godrays ]</div>
-		<div>[example:webgl_rtt rtt ]</div>
-		<div>[example:webgl_shaders_tonemapping shaders / tonemapping ]</div>
-		<div>[example:webgl_shadowmap shadowmap ]</div>
-		<div>[example:webgl_terrain_dynamic terrain / dynamic ]</div>
+		<div><a href="http://threejs.org/examples/#canvas_camera_orthographic" target="_blank">相机/正交</a></div>
+		<div><a href="http://threejs.org/examples/#canvas_camera_orthographic2" target="_blank">相机/正交2</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_camera" target="_blank">相机</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_interactive_cubes_ortho" target="_blank">交互/立方体/相邻</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_materials_cubemap_dynamic" target="_blank">材质/立方体映射/动态</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_postprocessing_advanced" target="_blank">后期处理/高级</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_postprocessing_dof2" target="_blank">后期处理/dof2</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_postprocessing_godrays" target="_blank">后期处理/神之光</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_rtt" target="_blank">rrt</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_shaders_tonemapping" target="_blank">着色器/色调映射</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_shadowmap" target="_blank">阴影贴图</a></div>
+		<div><a href="http://threejs.org/examples/#webgl_terrain_dynamic" target="_blank">地形/动态</a></div>
 
 		<code>var camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 );
 scene.add( camera );</code>
 
 
-		<h2>Constructor</h2>
+		<h2>构造函数</h2>
 
 
 		<h3>[name]( [page:Float left], [page:Float right], [page:Float top], [page:Float bottom], [page:Float near], [page:Float far] )</h3>
 		<div>
-		left — Camera frustum left plane.<br />
-		right — Camera frustum right plane.<br />
-		top — Camera frustum top plane.<br />
-		bottom — Camera frustum bottom plane.<br />
-		near — Camera frustum near plane.<br />
-		far — Camera frustum far plane.
+		left — 相机视锥左侧面。<br />
+		right — 相机视锥右侧面。<br />
+		top — 相机视锥上侧面。<br />
+		bottom — 相机视锥下侧面。<br />
+		near — 相机视锥近侧面。<br />
+		far — 相机视锥远侧面。
 		</div>
 
 
-		<h2>Properties</h2>
+		<h2>属性</h2>
 
 		<h3>[property:number zoom]</h3>
-		<div>Gets or sets the zoom factor of the camera. </div>
+		<div>获取或设置相机的zoom。</div>
 
 		<h3>[property:Float left]</h3>
-		<div>Camera frustum left plane.</div>
+		<div>相机视锥左侧面。</div>
 
 		<h3>[property:Float right]</h3>
-		<div>Camera frustum right plane.</div>
+		<div>相机视锥右侧面。</div>
 
 		<h3>[property:Float top]</h3>
-		<div>Camera frustum top plane.</div>
+		<div>相机视锥上侧面。</div>
 
 		<h3>[property:Float bottom]</h3>
-		<div>Camera frustum bottom plane.</div>
+		<div>相机视锥下侧面。</div>
 
 		<h3>[property:Float near]</h3>
-		<div>Camera frustum near plane.</div>
+		<div>相机视锥近侧面。</div>
 
 		<h3>[property:Float far]</h3>
-		<div>Camera frustum far plane.</div>
+		<div>相机视锥远侧面。</div>
 
 
-		<h2>Methods</h2>
+		<h2>方法</h2>
 
 		<h3>[method:null updateProjectionMatrix]()</h3>
 		<div>
-		Updates the camera projection matrix. Must be called after change of parameters.
+			更新相机投影矩阵。参数变更后必须被调用。
 		</div>
 
 		<h3>[method:OrthographicCamera clone]()</h3>
 		<div>
 		<br />
-		It returns a clone of OrthographicCamera.
+		返回正交相机的克隆。
 		</div>
 
 
 		<h3>[method:JSON toJSON]()</h3>
 		<div>
-		Return camera data in JSON format.
+		以JSON格式返回相机数据。
 		</div>
 
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 	</body>
