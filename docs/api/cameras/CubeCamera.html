@@ -12,72 +12,71 @@
 
 		<h1>[name]</h1>
 
-		<div class="desc">Creates 6 cameras that render to a [page:WebGLRenderTargetCube].</div>
+		<div class="desc">创建6个相机并渲染到[page:WebGLRenderTargetCube]。</div>
 
-		<h2>Examples</h2>
+		<h2>示例</h2>
 
-		<div>[example:webgl_materials_cubemap_dynamic materials / cubemap / dynamic ]</div>
-		<div>[example:webgl_materials_cubemap_dynamic2 materials / cubemap / dynamic2 ]</div>
-		<div>[example:webgl_shading_physical shading / physical ]</div>
+		<div>[example:http://threejs.org/examples/#webgl_materials_cubemap_dynamic 材质/立方体相机/动态 ]</div>
+		<div>[example:http://threejs.org/examples/#webgl_materials_cubemap_dynamic2 材质/立方体相机/动态2 ]</div>
+		<div>[example:http://threejs.org/examples/#webgl_shading_physical 阴影/物理 ]</div>
 
-		<code>//Create cube camera
+		<code>//创建立方体相机
 		var cubeCamera = new THREE.CubeCamera( 1, 100000, 128 );
 		scene.add( cubeCamera );
 
-		//Create car
+		//创建汽车对象
 		var chromeMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: cubeCamera.renderTarget } );
 		var car = new Mesh( carGeometry, chromeMaterial );
 		scene.add( car );
 
-		//Update the render target cube
+		//更新立方体的渲染目标
 		car.setVisible( false );
 		cubeCamera.position.copy( car.position );
 		cubeCamera.updateCubeMap( renderer, scene );
 
-		//Render the scene
+		//渲染场景
 		car.setVisible( true );
 		renderer.render( scene, camera );
 		</code>
 
 
-		<h2>Constructor</h2>
+		<h2>构造函数</h2>
 
 
 		<h3>[name]([page:number near], [page:number far], [page:number cubeResolution])</h3>
 		<div>
-		near -- The near clipping distance. <br />
-		far -- The far clipping distance <br />
-		cubeResolution -- Sets the width of the cube.
+		near -- 近距离裁切面 <br />
+		far -- 远距离裁切面 <br />
+		cubeResolution -- 设置立方体宽度
 		</div>
 		<div>
-		Constructs a CubeCamera that contains 6 [page:PerspectiveCamera PerspectiveCameras] that then
-		render to a [page:WebGLRenderTargetCube]
+		构造一个由6个[page:PerspectiveCamera 透视相机]构成的立方体相机，然后渲染到[page:WebGLRenderTargetCube]。
 		</div>
 
 
-		<h2>Properties</h2>
+		<h2>属性</h2>
 
 
 
 		<h3>[property:WebGLRenderTargetCube renderTarget]</h3>
 		<div>
-		The cube texture that gets generated.
+		生成立方体纹理。
 		</div>
 
-		<h2>Methods</h2>
+		<h2>方法</h2>
 
 
 
 		<h3>[method:null updateCubeMap]([page:WebGLRenderer renderer], [page:Scene scene])</h3>
 		<div>
-		renderer -- The current WebGL renderer <br />
-		scene -- The current scene
+		renderer -- 当前WebGL渲染器 <br />
+		scene -- 当前场景
 		</div>
 		<div>
-		Call this to update the renderTarget.
+		更新renderTarget属性。
 		</div>
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 	</body>
