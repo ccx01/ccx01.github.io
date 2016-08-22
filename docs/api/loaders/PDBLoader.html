@@ -12,74 +12,74 @@
 		<h1>[name]</h1>
 
 		<div class="desc">
-		A loader for loading a <em>.pdb</em> resource.
+			<em>.pdb</em>资源加载器。
 		<br /><br />
-		The <a href="http://en.wikipedia.org/wiki/Protein_Data_Bank_(file_format)">Protein Data Bank file format</a> is a textual file format describing the three-dimensional structures of molecules.
+		<a href="http://en.wikipedia.org/wiki/Protein_Data_Bank_(file_format)">蛋白质数据库文件格式</a>是描述分子三维结构的文本文件格式。
 		</div>
 
 
-		<h2>Constructor</h2>
+		<h2>构造函数</h2>
 
 		<h3>[name]( [page:LoadingManager manager] )</h3>
 		<div>
-		[page:LoadingManager manager] — The [page:LoadingManager loadingManager] for the loader to use. Default is [page:LoadingManager THREE.DefaultLoadingManager].
+		[page:LoadingManager manager] — [page:LoadingManager 加载管理器]。默认为[page:LoadingManager THREE.DefaultLoadingManager]。
 		</div>
 		<div>
-		Creates a new [name].
+		创建[name]。
 		</div>
 
-		<h2>Properties</h2>
+		<h2>属性</h2>
 
 
-		<h2>Methods</h2>
+		<h2>方法</h2>
 
 		<h3>[method:null load]( [page:String url], [page:Function onLoad], [page:Function onProgress], [page:Function onError] )</h3>
 		<div>
-		[page:String url] — required. URL to the <em>.pdb</em> file<br />
-		[page:Function onLoad] — Will be called when load completes. The arguments will be an [page:Geometry geometryAtoms], [page:Geometry geometryBonds] and the [page:Object JSON] structure.<br />
-		[page:Function onProgress] — Will be called while load progresses. The argument will be the XmlHttpRequest instance, that contain .[page:Integer total] and .[page:Integer loaded] bytes.<br />
-		[page:Function onError] — Will be called when load errors.<br />
+		[page:String url] — 必填。 <em>.pdb</em>文件的URL。<br />
+		[page:Function onLoad] — 加载完成后调用函数。参数为原子几何图形[page:Geometry geometryAtoms], 键值几何图形[page:Geometry geometryBonds] 的[page:Object JSON]数据。<br />
+		[page:Function onProgress] — 在加载过程中调用的函数。参数为XmlHttpRequest实例，包含有.[page:Integer total]和.[page:Integer loaded]数据。<br />
+		[page:Function onError] — 加载错误时将会调用该函数。<br />
 		</div>
 		<div>
-		Begin loading from url and call onLoad with the parsed response content.
+			从url开始加载，并在onLoad函数中获取返回数据。
 		</div>
 
 		<h3>[method:Object parsePDB]( [page:String text] )</h3>
 		<div>
-		[page:String text] — The textual <em>pdb</em> structure to parse.
+		[page:String text] — 解析<em>pdb</em>结构文本。
 		</div>
 		<div>
-		Parse a <em>pdb</em> text and return a <em>JSON</em> structure.<br />
+		解析<em>pdb</em>文本并返回<em>JSON</em>结构数据。<br />
 		</div>
 
 		<h3>[method:null createModel]( [page:Object json], [page:Function callback] )</h3>
 		<div>
-		[page:Object json] — The <em>(JSON) pdb</em> structure to parse.<br />
-		[page:Function callback] — Will be called when parse completes, with three arguments: [page:Geometry geometryAtoms], [page:Geometry geometryBonds] and the original [page:Object json].<br />
+		[page:Object json] — 解析<em>(JSON) pdb</em>结构数据。<br />
+		[page:Function callback] — 解析完成后调用，获取3个参数：原子几何图形[page:Geometry geometryAtoms], 键值几何图形[page:Geometry geometryBonds] 以及原始[page:Object json]数据。<br />
 		</div>
 		<div>
-		Parse a <em>(JSON) pdb</em> structure and return two [page:Geometry]: one for atoms, one for bonds.<br />
+		解析<em>(JSON) pdb</em>数据并返回两个几何图形[page:Geometry]：原子，键值。<br />
 		</div>
 
-		<h2>Example</h2>
+		<h2>示例</h2>
 
 		<code>
-		// instantiate a loader
+		// 加载器实例
 		var loader = new THREE.PDBLoader();
 
-		// load a PDB resource
+		// 加载PDB资源
 		loader.load(
-			// resource URL
+			// 资源URL
 			'models/molecules/caffeine.pdb',
-			// Function when resource is loaded
+			// 资源加载完成函数
 			function ( geometryAtoms, geometryBonds, json ) {
 				console.log( 'This molecule has ' + json.atoms.length + ' atoms' );
 			},
-			// Function called when download progresses
+			// 资源加载中函数
 			function ( xhr ) {
 				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
 			},
-			// Function called when download errors
+			// 资源加载出错函数
 			function ( xhr ) {
 				console.log( 'An error happened' );
 			}
@@ -89,7 +89,7 @@
 		[example:webgl_loader_pdb]
 
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/PDBLoader.js examples/js/loaders/PDBLoader.js]
 	</body>
