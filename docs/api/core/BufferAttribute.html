@@ -11,99 +11,104 @@
 		<h1>[name]</h1>
 
 		<div class="desc">
-		This class stores data for an attribute associated with a [page:BufferGeometry]. See that page for details and a usage example. This class is used to store builtin attributes such as vertex position, normals, color, etc., but can also be used in your code to store custom attributes in a [page:BufferGeometry].
+		这个类存储了[page:BufferGeometry]相关数据。查看对应页面查看详细用法和示例。这个类通常用来储存内置属性顶点position，normals，color等等，不过存储[page:BufferGeometry]内自定义属性也是没有问题的。
 		</div>
 
-		<h2>Constructor</h2>
-		<h3>[name]([page:Array array], [page:Integer itemSize])</h3>
+		<h2>构造函数</h2>
+		<h3>[name]( [page:TypedArray array], [page:Integer itemSize], [page:Boolean normalized] )</h3>
 		<div>
-		Instantiates this attribute with data from the associated buffer. The array can either be a regular Array or a Typed Array.
-		itemSize gives the number of values of the array that should be associated with a particular vertex.
+		从相关的缓存区中实例化该属性。
+		itemSize为与指定顶点相关的数组值数量。
+		normalized表示缓存区内基础数据如何映射到GLSL着色器代码上。
 		</div>
 
-		<h2>Properties</h2>
+		<h2>属性</h2>
 
-		<h3>[property:Array array]</h3>
+		<h3>[property:TypedArray array]</h3>
 		<div>
-		Stores the data associated with this attribute; can be an Array or a Typed Array. This element should have <code>itemSize * numVertices</code> elements, where numVertices is the number of vertices in the associated [page:BufferGeometry geometry].
+		存储与该属性相关的数据。这个元素应该有<code>itemSize * numVertices</code>个元素。这里numVertices是几何图形[page:BufferGeometry geometry]对应的顶点数。[page:TypedArray array]可以是UInt8Array, Int8Array, UInt16Array, Int16Array, 或 Float32Array的实例。
 		</div>
 
 		<h3>[property:Integer itemSize]</h3>
 		<div>
-		Records how many items of the array are associated with a particular vertex. For instance, if this
-		attribute is storing a 3-component vector (such as a position, normal, or color), then itemSize should be 3.
+		记录与顶点相关的数组数量。举个例子，如果一个属性有个三维向量（比如position, normal, 或 color），那么itemSize就是3。
 		</div>
 
-		<h3>[property:Integer length]</h3>
+		<h3>[property:Integer count]</h3>
 		<div>
-		Gives the total number of elements in the array.
+		数组中元素的总数。
 		</div>
 
 		<h3>[property:Boolean needsUpdate]</h3>
 		<div>
-		Flag to indicate that this attribute has changed and should be re-send to the GPU. Set this to true when you modify the value of the array.
+		标识该属性已被改变，需要重新发回GPU。当你修改数组的值后需要将其设为true。
+		</div>
+
+		<h3>[property:Boolean normalized]</h3>
+		<div>
+		表示缓存区内基础数据如何映射到GLSL着色器代码上。举个例子，如果[page:TypedArray array]是UInt16Array的实例，并且[page:Boolean normalized]为true，那么值0 - +65536将会对应GLSL属性上的0.0f - +1.0f。一个（有符号）Int16Array将对应-32767 - +32767到-1.0f - +1.0f。如果[page:Boolean normalized]为false，那么值将转换为浮点数，比如32767变为32767.0f。
 		</div>
 
 		<h3>[property:Integer version]</h3>
 		<div>
-		A version number, incremented every time the needsUpdate property is set to true.
+		版本号，每当needsUpdate设为true时就会增加。
 		</div>
 
 
-		<h2>Methods</h2>
+		<h2>方法</h2>
 
 		<h3>[method:null copyAt] ( [page:Integer index1], attribute, [page:Integer index2] ) </h3>
 		<div>
-		Copies itemSize values in the array from the vertex at index2 to the vertex at index1.
+		复制index2顶点数组中的itemSize值到index1中。
 		</div>
 
 		<h3>[method:null set] ( [page:Array value] ) </h3>
 		<div>
-		Sets the associated array with values from the passed array.
+		从传递的数组中取值来设置相关数组。
 		</div>
 
 		<h3>[method:null setX]( index, x ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize</code> to x
+		把数组中<code>index * itemSize</code>的值设为x。
 		</div>
 
 		<h3>[method:null setY]( index, y ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize + 1</code> to y
+		把数组中<code>index * itemSize + 1</code>的值设为y。
 		</div>
 
 		<h3>[method:null setZ]( index, z ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize + 2</code> to z
+		把数组中<code>index * itemSize + 2</code>的值设为z。
 		</div>
 
 		<h3>[method:null setXY]( index, x, y ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize</code> to x and
-		sets the value of the array at <code>index * itemSize + 1</code> to y
+		把数组中<code>index * itemSize</code>的值设为x，
+		把数组中<code>index * itemSize + 1</code>的值设为y。
 		</div>
 
 		<h3>[method:null setXYZ]( index, x, y, z ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize</code> to x,
-		the value of the array at <code>index * itemSize + 1</code> to y, and
-		the value of the array at <code>index * itemSize + 2</code> to z.
+		把数组中<code>index * itemSize</code>的值设为x，
+		把数组中<code>index * itemSize + 1</code>的值设为y，
+		把数组中<code>index * itemSize + 2</code>的值设为z。
 		</div>
 
 		<h3>[method:null setXYZW]( index, x, y, z, w ) </h3>
 		<div>
-		Sets the value of the array at <code>index * itemSize</code> to x,
-		the value of the array at <code>index * itemSize + 1</code> to y,
-		the value of the array at <code>index * itemSize + 2</code> to z, and
-		the value of the array at <code>index * itemSize + 3</code> to w.
+		把数组中<code>index * itemSize</code>的值设为x，
+		把数组中<code>index * itemSize + 1</code>的值设为y，
+		把数组中<code>index * itemSize + 2</code>的值设为z，
+		把数组中<code>index * itemSize + 3</code>的值设为w。
 		</div>
 
 		<h3>[method:BufferAttribute clone]() </h3>
 		<div>
-		Copies this attribute.
+		复制这个属性。
 		</div>
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 	</body>
