@@ -12,110 +12,91 @@
 
 		<div class="desc">
 		<p>
-		This class is an efficient alternative to [page:Geometry], because it stores all data, including
-		vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers; this
-		reduces the cost of passing all this data to the GPU.
-		This also makes BufferGeometry harder to work with than [page:Geometry]; rather than accessing
-		position data as [page:Vector3] objects, color data as [page:Color] objects, and so on, you have to
-		access the raw data from the appropriate [page:BufferAttribute attribute] buffer. This makes
-		BufferGeometry best-suited for static objects where you don't need to manipulate the geometry much
-		after instantiating it.
+		这个类可以很有效的代替[page:Geometry]，因为他储存了所有的数据，包括顶点位置，平面数，法向量，颜色，UVs以及缓存中自定义的属性；它减少了数据传输到GPU的消耗。
+		不过这也让BufferGeometry的运行机制比[page:Geometry]更复杂；并不是用[page:Vector3]对象访问position，[page:Color]对象访问color，而是你必须从[page:BufferAttribute attribute]缓存中读取对应行数的数据。这使BufferGeometry更适合那些创建实例后不再需要操作的静态对象。
 		</p>
 
-		<h3>Example</h3>
+		<h3>示例</h3>
 		<code>
 		var geometry = new THREE.BufferGeometry();
-		// create a simple square shape. We duplicate the top left and bottom right
-		// vertices because each vertex needs to appear once per triangle.
-		var vertexPositions = [
-			[-1.0, -1.0,  1.0],
-			[ 1.0, -1.0,  1.0],
-			[ 1.0,  1.0,  1.0],
+		// 创建一个简单的方块图形。我们重复几次左上和右下角顶点，因为每个顶点都需要在对应的三角形中出现一次。
+		var vertices = new Float32Array( [
+			-1.0, -1.0,  1.0,
+			 1.0, -1.0,  1.0,
+			 1.0,  1.0,  1.0,
 
-			[ 1.0,  1.0,  1.0],
-			[-1.0,  1.0,  1.0],
-			[-1.0, -1.0,  1.0]
-		];
-		var vertices = new Float32Array( vertexPositions.length * 3 ); // three components per vertex
+			 1.0,  1.0,  1.0,
+			-1.0,  1.0,  1.0,
+			-1.0, -1.0,  1.0
+		] );
 
-		// components of the position vector for each vertex are stored
-		// contiguously in the buffer.
-		for ( var i = 0; i < vertexPositions.length; i++ )
-		{
-			vertices[ i*3 + 0 ] = vertexPositions[i][0];
-			vertices[ i*3 + 1 ] = vertexPositions[i][1];
-			vertices[ i*3 + 2 ] = vertexPositions[i][2];
-		}
-
-		// itemSize = 3 because there are 3 values (components) per vertex
+		// itemSize = 3 因为每个顶点有3个坐标值
 		geometry.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
 		var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 		var mesh = new THREE.Mesh( geometry, material );
 		</code>
-		<p>More examples: [example:webgl_buffergeometry Complex mesh with non-indexed faces], [example:webgl_buffergeometry_uint Complex mesh with indexed faces], [example:webgl_buffergeometry_lines Lines], [example:webgl_buffergeometry_lines_indexed Indexed Lines], [example:webgl_buffergeometry_particles Particles], and [example:webgl_buffergeometry_rawshader Raw Shaders].</p>
+		<p>更多示例: 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry" target="_blank">复杂的无索引网格</a>, 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry_uint" target="_blank">复杂的索引网格</a>, 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry_lines" target="_blank">线条</a>, 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry_lines_indexed" target="_blank">索引线条</a>, 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry_custom_attributes_particles" target="_blank">粒子</a>, 
+			<a href="http://threejs.org/examples/#webgl_buffergeometry_rawshader" target="_blank">着色器</a>
+		</p>
 
 
-		<h3>Accessing attributes</h3>
+		<h3>访问属性</h3>
 		<p>
-		WebGL stores data associated with individual vertices of a geometry in <emph>attributes</emph>.
-		Examples include the position of the vertex, the normal vector for the vertex, the vertex color,
-		and so on. When using [page:Geometry], the [page:WebGLRenderer renderer] takes care of wrapping
-		up this information into typed array buffers and sending this data to the shader. With
-		BufferGeometry, all of this data is stored in buffers associated with an individual attributes.
-		This means that to get the position data associated with a vertex (for instance), you must call
-		[page:.getAttribute] to access the 'position' [page:BufferAttribute attribute], then access the individual
-		x, y, and z coordinates of the position.
+		WebGL把几何图形中所有顶点的数据储存在<emph>attributes</emph>中。比如顶点位置、顶点法向量、顶点颜色等等。使用[page:Geometry]时，[page:WebGLRenderer renderer]会将这些信息存入缓存数组并发给着色器。而用BufferGeometry时，所有顶点数据将会存入缓存中。这意味着，如果你要取得一个顶点数据，你必须调用[page:.getAttribute]来访问'position'[page:BufferAttribute 属性]，然后才能访问对应的position中对应的x,y,z坐标值。
 		</p>
 		<p>
-		The following attributes are set by various members of this class:
+		以下属性可以通过该类的不同方法设置：
 		</p>
 		<h4>[page:BufferAttribute position] (itemSize: 3)</h4>
 		<div>
-		Stores the x, y, and z coordinates of each vertex in this geometry. Set by [page:.fromGeometry]().
+		储存几何图形中每个顶点的x,y,z坐标值。由[page:.fromGeometry]()设置。
 		</div>
 
 		<h4>[page:BufferAttribute normal] (itemSize: 3)</h4>
 		<div>
-		Stores the x, y, and z components of the face or vertex normal vector of each vertex in this geometry.
-		Set by [page:.fromGeometry]().
+		储存几何图形中每个面或顶点法向量的x,y,z坐标值。由[page:.fromGeometry]()设置。
 		</div>
 
 		<h4>[page:BufferAttribute color] (itemSize: 3)</h4>
 		<div>
-		Stores the red, green, and blue channels of vertex color of each vertex in this geometry.
-		Set by [page:.fromGeometry]().
+		储存几何图形中每个顶点法红绿蓝颜色通道值。由[page:.fromGeometry]()设置。
 		</div>
 
-		<h4>[page:BufferAttribute index] (itemSize: 3)</h4>
-		Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles," and works much the same as it does in [page:Geometry]: each triangle is associated with the index of three vertices. This attribute therefore stores the index of each vertex for each triangular face.
+		<h4>[page:BufferAttribute index] (itemSize: 1)</h4>
+		允许顶点被多个三角形复用；这叫“索引三角”，运行机制与[page:Geometry]一样：每个三角都有3个对应的顶点。所以这些属性存储在每个三角形的每个顶点上。
 
-		If this attribute is not set, the [page:WebGLRenderer renderer] assumes that each three contiguous positions represent a single triangle.
+		如果这个属性没有设置，[page:WebGLRenderer renderer]就会认为每个顶点构成一个三角形。
 		</div>
 		<p>
-		In addition to the the built-in attributes, you can set your own custom attributes using the addAttribute method. With [page:Geometry], these attributes are set and stored on the [page:Material]. In BufferGeometry, the attributes are stored with the geometry itself. Note that you still need to set the attributes information on the material as well, but the value of each attribute is stored in the BufferGeometry.
+		除了内置属性，你也可以用addAttribute来设置自定义属性。在[page:Geometry]中，这些属性会被存到[page:Material]里。而在BufferGeometry中，这些属性存在图形里。注意，你还是要把这些属性信息写入material，不过每个对应值都会存储在BufferGeometry中。
 		</p>
 
 
-		<h2>Constructor</h2>
+		<h2>构造函数</h2>
 
 
 		<h3>[name]()</h3>
 		<div>
-		This creates a new [name]. It also sets several properties to a default value.
+		创建个新的[name]。同时把属性设置为默认值。
 		</div>
 
 
-		<h2>Properties</h2>
+		<h2>属性</h2>
 
 		<h3>[property:Integer id]</h3>
 		<div>
-		Unique number for this buffergeometry instance.
+		buffergeometry实例id。
 		</div>
 
 		<h3>[property:Hashmap attributes]</h3>
 		<div>
-		This hashmap has as id the name of the attribute to be set and as value the [page:BufferAttribute buffer] to set it to.
-		Rather than accessing this property directly, use addAttribute and getAttribute to access attributes of this geometry.
+			这个属性用属性名做id，值为[page:BufferAttribute buffer]。
+			这个属性不能直接访问，需要用addAttribute和getAttribute来访问图形属性。
 		</div>
 
 		<!--
@@ -124,185 +105,169 @@
 		When set, it holds certain buffers in memory to have faster updates for this object. When unset, it deletes those buffers and   saves memory.
 		</div> -->
 
-		<h3>[property:Array drawcalls] (previously [property:Array offsets])</h3>
+		<h3>[property:Array drawcalls] (之前是 [property:Array offsets])</h3>
 		<div>
-		For geometries that use indexed triangles, this Array can be used to split the object into multiple WebGL draw calls. Each draw call will draw some subset of the vertices in this geometry using the configured [page:Material shader]. This may be necessary if, for instance, you have more than 65535 vertices in your object.
-		Each element is an object of the form:
+		对于使用索引三角的图形，这个数组可以把对象分离到多个WebGL中绘制调用。每个绘制调用都会用设好的[page:Material shader]绘制一些顶点集。这是很有必要的，比如你的对象中有超过65535个顶点的时候。
+		每个元素都是以下格式对象：
 		<code>{ start: Integer, count: Integer, index: Integer }</code>
-		where start specifies the index of the first vertex in this draw call, count specifies how many vertices are included, and index specifies an optional offset.
-
-		Use addDrawCall to add draw calls, rather than modifying this array directly.
+		start指绘制的第一个顶点，count表示有多少个顶点，而index则是个可选的值。
+		用addDrawCall添加绘制调用，而不是直接修改这个数组。
 		</div>
 
 		<h3>[property:Box3 boundingBox]</h3>
 		<div>
-		Bounding box.
+		封闭盒子。
 		<code>{ min: new THREE.Vector3(), max: new THREE.Vector3() }</code>
 		</div>
 
 		<h3>[property:Sphere boundingSphere]</h3>
 		<div>
-		Bounding sphere.
+		封闭球体。
 		<code>{ radius: float }</code>
 		</div>
 
-		<h3>[property:Array morphTargets]</h3>
-		<div>
-		Array of morph targets. Each morph target is a Javascript object:
-		<code>{ name: "targetName", vertices: [ new THREE.Vertex(), ... ] }</code>
-		Morph vertices match number and order of primary vertices.
-		</div>
+		<h2>方法</h2>
 
-		<h2>Methods</h2>
-
-		<h3>[page:EventDispatcher EventDispatcher] methods are available on this class.</h3>
+		<h3>[page:EventDispatcher EventDispatcher]方法在该类中可用。</h3>
 
 		<h3>[property:null addAttribute]( [page:String name], [page:BufferAttribute attribute] )</h3>
 		<div>
-		Adds an attribute to this geometry. Use this rather than the attributes property,
-		because an internal array of attributes is maintained to speed up iterating over
-		attributes.
+		为几何图形添加属性。使用此方法而不是直接操作attributes属性，因为有一个内部attributes数组用来加快属性的迭代。
 		</div>
 
 		<h3>[method:null addDrawCall]( [page:Integer start], [page:Integer count], [page:Integer indexOffset] )</h3>
 		<div>
-		Adds a draw call to this geometry; see the [page:BufferGeometry.drawcalls drawcalls] property for details.
+			为几何图形添加一个绘制调用；点击[page:BufferGeometry.drawcalls drawcalls]查看详细信息。
 		</div>
 
 		<h3>[method:null clearDrawCalls]( )</h3>
 		<div>
-		Clears all draw calls.
+		清除所有的绘制调用。
 		</div>
 
 		<h3>[method:null applyMatrix]( [page:Matrix4 matrix] )</h3>
 		<div>
-		Bakes matrix transform directly into vertex coordinates.
+		为顶点坐标进行矩阵变换。
 		</div>
 
 		<h3>[method:null center] ()</h3>
 		<div>
-		Center the geometry based on the bounding box.
+		将图形在封闭盒子内居中。
 		</div>
 
 		<h3>[method:BufferGeometry rotateX] ( [page:Float radians] )</h3>
 		<div>
-		Rotate the geometry about the X axis. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.rotation] for typical real-time mesh rotation.
+    	几何图形绕x轴旋转。这个是一次性完成的操作，实时网格旋转通过循环调用[page:Object3D.rotation]实现。
 		</div>
 
 		<h3>[method:BufferGeometry rotateY] ( [page:Float radians] )</h3>
 		<div>
-		Rotate the geometry about the Y axis. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.rotation] for typical real-time mesh rotation.
+    	几何图形绕y轴旋转。这个是一次性完成的操作，实时网格旋转通过循环调用[page:Object3D.rotation]实现。
 		</div>
 
 		<h3>[method:BufferGeometry rotateZ] ( [page:Float radians] )</h3>
 		<div>
-		Rotate the geometry about the Z axis. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.rotation] for typical real-time mesh rotation.
+    	几何图形绕z轴旋转。这个是一次性完成的操作，实时网格旋转通过循环调用[page:Object3D.rotation]实现。
 		</div>
 
 		<h3>[method:BufferGeometry translate] ( [page:Float x], [page:Float y], [page:Float z] )</h3>
 		<div>
-		Translate the geometry. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.position] for typical real-time mesh translation.
+    	位移几何图形。这个是一次性完成的操作，实时网格位移通过循环调用[page:Object3D.position]实现。
 		</div>
 
 		<h3>[method:BufferGeometry scale] ( [page:Float x], [page:Float y], [page:Float z] )</h3>
 		<div>
-		Scale the geometry data. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.scale] for typical real-time mesh scaling.
+    	缩放几何图形。这个是一次性完成的操作，实时网格缩放通过循环调用[page:Object3D.scale]实现。
 		</div>
 
 		<h3>[method:BufferGeometry lookAt] ( [page:Vector3 vector] )</h3>
 		<div>
-		vector - A world vector to look at.<br />
+		vector - 指向的全局向量。<br />
 		</div>
 		<div>
-		Rotates the geometry to face point in space. This is typically done as a one time operation, and not during a loop
-    Use [page:Object3D.lookAt] for typical real-time mesh usage.
+    	旋转几何图形朝向所指的点。这个是一次性完成的操作，实时网格指向通过循环调用[page:Object3D.lookAt]实现。
 		</div>
 
 		<h3>[method:BufferGeometry setFromObject] ( [page:Object3D object] )</h3>
 		<div>
-		Sets the attributes for this BufferGeometry from an [page:Object3D].
+		将[page:Object3D]值存入BufferGeometry的attributes中。
 		</div>
 
 		<h3>[method:null computeVertexNormals]()</h3>
 		<div>
-		Computes vertex normals by averaging face normals.<br />
+		通过平均面法线来计算顶点法线。<br />
 		</div>
 
 		<h3>[method:null computeBoundingBox]()</h3>
 		<div>
-		Computes bounding box of the geometry, updating [page:Geometry Geometry.boundingBox] attribute.<br />
-		Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			计算几何图形的封闭盒子，更新[page:Geometry Geometry.boundingBox]属性。<br />
+			封闭盒默认不计算。需要显式计算，否则为 *null*。
 		</div>
 
 		<h3>[method:null computeBoundingSphere]()</h3>
 		<div>
-		Computes bounding sphere of the geometry, updating [page:Geometry Geometry.boundingSphere] attribute.<br />
-		Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are *null*.
+			计算几何图形的封闭球，更新[page:Geometry Geometry.boundingSphere]属性。<br />
+			封闭球默认不计算。需要显式计算，否则为 *null*。
 		</div>
 
 		<h3>[method:null computeOffsets] ( [page:Integer size] )</h3>
 		<div>
-		Compute the draw offset for large models by chunking the index buffer into chunks of 65k addressable vertices.
-		This method will effectively rewrite the index buffer and remap all attributes to match the new indices.
-		WARNING: This method will also expand the vertex count to prevent sprawled triangles across draw offsets.
-		size - Defaults to 65535 or 4294967296 if extension OES_element_index_uint supported, but allows for larger or smaller chunks.
+		将大模型分为多个65k顶点集，计算绘制偏移。
+		这个方法能有效的重写索引缓存并为所有属性重新配置新的索引。
+		警告：这个方法将增加顶点数量，防止三角形通过绘制偏移进行平铺。
+		size - 默认为65535，如果支持扩展OES_element_index_uint则为4294967296，同时允许更大或更小的顶点块。
 		</div>
 
 		<h3>[method:null merge]( [page:BufferGeometry bufferGeometry], [page:Integer offset] )</h3>
 		<div>
-		Merge in another BufferGeometry with an optional offset of where to start merging in.
+		合并另一个 BufferGeometry，可选参数 offset 表示从哪里开始合并。
 		</div>
 
 		<h3>[method:null dispose]()</h3>
 		<div>
-		Disposes the object from memory. <br />
-		You need to call this when you want the bufferGeometry removed while the application is running.
+			从内存中释放该对象。 <br />
+			当你想在程序运行期间删除BufferGeometry时，需要调用该方法。
 		</div>
 
-		<h3>[method:null fromGeometry]( [page:Geometry] )</h3>
+		<h3>[method:BufferGeometry fromGeometry]( [page:Geometry] )</h3>
 		<div>
-		Populates this BufferGeometry with data from a [page:Geometry] object.
+		用[page:Geometry]对象填充该BufferGeometry。
 		</div>
 
 		<h3>[method:BufferAttribute getAttribute]( [page:String name] )</h3>
 		<div>
-		Returns the [page:BufferAttribute attribute] with the specified name.
+		返回指定名称的[page:BufferAttribute attribute]。
 		</div>
 
 		<h3>[method:BufferAttribute removeAttribute]( [page:String name] )</h3>
 		<div>
-		Removes the [page:BufferAttribute attribute] with the specified name.
+		删除指定名称的[page:BufferAttribute attribute]。
 		</div>
 
 		<h3>[method:null normalizeNormals]()</h3>
 		<div>
-		Every normal vector in a geometry will have a magnitude of 1.
-		This will correct lighting on the geometry surfaces.
+		将图形里每个面法向量的长度变为1。
+		这将修正图形表面的光线。
 		</div>
 
 		<h3>[method:Object toJSON]()</h3>
 		<div>
-		Returns a raw object representation of the BufferGeometry.
+		返回BufferGeometry原始数据对象。
 		</div>
 
 		<h3>[method:BufferGeometry clone]()</h3>
 		<div>
-		Creates a clone of this BufferGeometry.
+		创建BufferGeometry的克隆。
 		</div>
 
 		<h3>[method:BufferGeometry copy]( [page:BufferGeometry bufferGeometry] )</h3>
 		<div>
-		Copies another BufferGeometry to this BufferGeometry.
+		复制另一个BufferGeometry到该BufferGeometry。
 		</div>
 
 
 
-		<h2>Source</h2>
+		<h2>源码</h2>
 
 		[link:https://github.com/mrdoob/three.js/blob/master/src/[path].js src/[path].js]
 	</body>
