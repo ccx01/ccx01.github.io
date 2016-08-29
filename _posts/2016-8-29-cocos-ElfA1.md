@@ -55,7 +55,7 @@ tags: [animation, web]
 
 并不是，所以开始cocos creator制作游戏的流程吧。
 
-##Day 1
+## Day 1
 
 确定要做横版过关游戏，要先确定主角。
 
@@ -87,7 +87,7 @@ tags: [animation, web]
 
 第一天就这样了。
 
-##Day 2
+## Day 2
 
 在示例代码的基础上进行初步阅读以及修改，首先，添加人物动画。照着教程做，有些机制要搞清楚，比如animation和sprite节点，其他倒是没什么。
 
@@ -193,6 +193,8 @@ update: function (dt) {
 ```
 
 ![雅典娜](/img/2016-8-29-cocos-ElfA1/e9.gif)
+
+这个gif有点糟- -，虽然360k但是还是掉了好多帧。
 
 第二天结束，对了，这个系列不是教程。
 
