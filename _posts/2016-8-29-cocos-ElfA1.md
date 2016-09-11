@@ -9,6 +9,18 @@ tags: [animation, web]
 
 **这不是教程**
 
+游戏demo可以在这里试试，bug还挺多
+
+PC端用键盘WASD移动，J键攻击。
+
+<a href="http://ccx01.github.io/game/ElfA/demo/web-mobile/" target="_blank">http://ccx01.github.io/game/ElfA/demo/web-mobile/</a>
+
+移动端可以扫码：
+
+![ElfA QRcode](/img/2016-9-15-cocos-ElfA4/qr.png)
+
+左边是摇杆，右边是攻击按键。
+
 --------
 
 这里是废话。
@@ -201,3 +213,12 @@ update: function (dt) {
 这个算是个人制作的记录吧，实时的。（这个记录写完的瞬间忽然觉得，与其每天抽一两个小时写这个，不如把这些时间拿去写游戏……这东西到底有没有意义，因为心态不稳，所以这个系列可能随时太监，不过游戏肯定会写完的。）
 
 对于抱着学习web游戏制作的心理偶然来到这里的同学，如果这些能看的懂的话，说明你其实已经独立制作过web游戏了，大概是来找素材或灵感的吧。那么有兴趣可以一起交流下。至于感觉没有讲到重点的同学，可以要失望了，这个系列只是创作过程的创作者想法记录，也许以后会出个详细的制作教程。
+
+
+<a href="http://ccx01.github.io/post/cocos-ElfA1">ElfA制作流程(1)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA2">ElfA制作流程(2)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA3">ElfA制作流程(3)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA4">ElfA制作流程(4)</a>

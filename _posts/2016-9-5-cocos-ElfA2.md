@@ -183,3 +183,12 @@ update: function (dt) {
 ```
 
 ![效果](/img/2016-9-5-cocos-ElfA2/e7.gif)
+
+
+<a href="http://ccx01.github.io/post/cocos-ElfA1">ElfA制作流程(1)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA2">ElfA制作流程(2)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA3">ElfA制作流程(3)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA4">ElfA制作流程(4)</a>

@@ -224,3 +224,12 @@ hitEffectPrefabShow: function () {
 虽然今天还有1-2个小时，不过有点不想再写了，就到这吧。
 
 真是怠惰啊……
+
+
+<a href="http://ccx01.github.io/post/cocos-ElfA1">ElfA制作流程(1)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA2">ElfA制作流程(2)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA3">ElfA制作流程(3)</a>
+
+<a href="http://ccx01.github.io/post/cocos-ElfA4">ElfA制作流程(4)</a>
