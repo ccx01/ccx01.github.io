@@ -17,7 +17,7 @@ PC端用键盘WASD移动，J键攻击。
 
 移动端可以扫码：
 
-![ElfA QRcode](/img/2016-9-15-cocos-ElfA4/qr.png)
+![ElfA QRcode](/img/2016-9-12-cocos-ElfA4/qr.png)
 
 左边是摇杆，右边是攻击按键。
 
