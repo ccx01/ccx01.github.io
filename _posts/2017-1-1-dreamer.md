@@ -6,6 +6,8 @@ description: 你有实现梦想的能力，但那远远不够，除非你的真�
 tags: [metaphysics, acg]
 ---
 
+你有实现梦想的能力，但那远远不够，除非你的真的实现它。
+
 <img src="http://upload-images.jianshu.io/upload_images/3575020-ca6a2a8bf624a3b7.png">
 
 <img src="http://upload-images.jianshu.io/upload_images/3575020-5ab3ea80b7576dd9.png">
