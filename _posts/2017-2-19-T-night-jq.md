@@ -7,7 +7,7 @@ tags: [acg]
 ---
 这个是2012年做的一个PC端html5游戏。
 
-<iframe frameborder="0" width="100%" height="498" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
+<iframe frameborder="0" width="100%" height="auto" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
 
 ========
 
