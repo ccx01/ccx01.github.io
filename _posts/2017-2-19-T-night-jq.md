@@ -7,7 +7,7 @@ tags: [acg]
 ---
 这个是2012年做的一个PC端html5游戏。
 
-<iframe frameborder="0" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
+<iframe frameborder="0" width="100%" height="498" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
 
 ========
 
@@ -171,5 +171,4 @@ ui
 <img src="http://upload-images.jianshu.io/upload_images/3575020-2d82cc2a3c484933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/3575020-2d82cc2a3c484933?imageMogr2/auto-orient/strip" style="cursor: zoom-in;">
 
 
-这里记录了另一个宇宙的故事</p>
-        </div>
+这里记录了另一个宇宙的故事
