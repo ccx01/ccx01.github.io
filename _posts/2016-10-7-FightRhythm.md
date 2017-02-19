@@ -33,7 +33,7 @@ tags: [animation]
 
 最后放个游戏视频-___,-
 
-<iframe frameborder="0" width="100%" height="auto" src="http://v.qq.com/iframe/player.html?vid=y0334pj0q80&tiny=0&auto=0" allowfullscreen></iframe>
+<iframe frameborder="0" width="640" height="498" src="http://v.qq.com/iframe/player.html?vid=y0334pj0q80&tiny=0&auto=0" allowfullscreen></iframe>
 
 ​
 感兴趣的同学扫描二维码进行游戏吧

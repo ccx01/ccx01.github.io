@@ -3,11 +3,11 @@ layout: post
 title: 月千之夜
 keywords: Sign,Sign的博客,形而上学,游戏
 description: 这个是2012年做的一个游戏。
-tags: [acg]
+tags: [animation]
 ---
 这个是2012年做的一个PC端html5游戏。
 
-<iframe frameborder="0" width="100%" height="auto" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
+<iframe frameborder="0" width="640" height="498" src="https://v.qq.com/iframe/player.html?vid=h037654ivcy&tiny=0&auto=0" allowfullscreen></iframe>
 
 ========
 
