@@ -154,6 +154,7 @@ tags: [animation]
 
 根据实际情况选择合适的碰撞代码即可。
 
+————
 
 <img src="http://upload-images.jianshu.io/upload_images/3575020-2d82cc2a3c484933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
