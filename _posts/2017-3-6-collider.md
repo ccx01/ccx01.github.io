@@ -2,7 +2,7 @@
 layout: post
 title: 动作游戏中的碰撞系统
 keywords: Sign,Sign的博客,形而上学,游戏,碰撞系统
-description:动作游戏中的碰撞系统
+description: 动作游戏中的碰撞系统
 tags: [animation]
 ---
 
