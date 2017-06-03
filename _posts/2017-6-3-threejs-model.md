@@ -3,7 +3,7 @@ layout: post
 title: THREEJS中的3D(动画)模型
 keywords: Sign,Sign的博客,游戏人生,哲学,THREEJS中的3D(动画)模型
 description: THREEJS中的3D(动画)模型
-tags: [web]
+tags: [web, threejs]
 ---
 关于web模型，这是个很难讲的主题，因为它跨了比较多的领域，之前也在文章中吐槽过：
 
